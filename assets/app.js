@@ -229,6 +229,7 @@ async function detect() {
     clearTimeout(detect.t); detect.t = setTimeout(detect, 2000);
     return;
   }
+  let noModels = false;
   if (!found && settings.engine !== 'llamacpp') {
     const r = await ping(settings.ollamaUrl + '/api/tags');
     if (r) {
@@ -236,17 +237,20 @@ async function detect() {
       try {
         const models = (await r.json()).models || [];
         fillModels(models.map((m) => m.name));
+        noModels = !models.length;
         if (models.length && !models.some((m) => m.name === settings.model)) settings.model = models[0].name;
       } catch {}
       label = settings.model;
     }
   }
-  engine = found;
-  $('modelName').textContent = prettyModel(label || settings.model);
-  if (found === 'llamacpp') setStatus('ok', 'جاهز · llama-server');
+  // Ollama is running but nothing was pulled yet: sending would only fail
+  engine = noModels ? null : found;
+  $('modelName').textContent = noModels ? '—' : prettyModel(label || settings.model);
+  if (noModels) setStatus('off', 'لا يوجد نموذج — نزّل نموذجًا أولًا بالأمر ollama pull');
+  else if (found === 'llamacpp') setStatus('ok', 'جاهز · llama-server');
   else if (found === 'ollama') setStatus('ok', 'جاهز · Ollama');
   else if (settings.engine === 'llamacpp') setStatus('wait', 'ينتظر llama-server…');
-  else setStatus('off', 'المحرّك غير مشغَّل — شغّل start.bat');
+  else setStatus('off', 'Ollama غير مشغَّل — افتح برنامج Ollama من قائمة «ابدأ»');
   clearTimeout(detect.t);
   detect.t = setTimeout(detect, found ? 20000 : settings.engine === 'llamacpp' ? 2000 : 4000);
 }
@@ -300,7 +304,7 @@ async function send() {
   if (!text && !pending.length) return;
   await detect();             // engines can restart between messages: always re-check before sending
   if (!engine) {
-    toast($('status').classList.contains('wait') ? 'النموذج قيد التحميل — انتظر بضع ثوانٍ ثم أرسل' : 'المحرّك غير مشغَّل — شغّل start.bat أولًا');
+    toast($('status').classList.contains('wait') ? 'النموذج قيد التحميل — انتظر بضع ثوانٍ ثم أرسل' : $('statusText').textContent);
     return;
   }
 

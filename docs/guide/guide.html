@@ -347,8 +347,8 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
 
   <table class="models all">
     <tr><th>النموذج</th><th>الشركة</th><th>الحجم</th><th>الذاكرة (<bdi>RAM</bdi>)</th><th>الصور</th><th>مناسب لـ</th></tr>
-    <tr><td class="t"><span class="nw">Qwen3.5-0.8B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">1.3 GB</span></td><td><span class="nw">4 GB</span></td><td class="yes">✓</td><td>الأجهزة الضعيفة والتجربة السريعة</td></tr>
-    <tr><td class="t"><span class="nw">Qwen3.5-2B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">3 GB</span></td><td><span class="nw">8 GB</span></td><td class="yes">✓</td><td>الأسئلة اليومية البسيطة</td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.5-0.8B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">1.3 GB</span></td><td><span class="nw">4 GB</span></td><td class="yes">✓</td><td>التجربة فقط (سريع، لكنه قد يخطئ في المعلومات)</td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.5-2B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">3 GB</span></td><td><span class="nw">8 GB</span></td><td class="yes">✓</td><td>الأسئلة البسيطة (دقة محدودة)</td></tr>
     <tr><td class="t"><span class="nw">Qwen3.5-4B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">4 GB</span></td><td><span class="nw">8 GB</span></td><td class="yes">✓</td><td>الحواسيب العادية</td></tr>
     <tr><td class="t"><span class="nw">Gemma 4 E2B</span></td><td><bdi>Google</bdi></td><td><span class="nw">4.6 GB</span></td><td><span class="nw">8 GB</span></td><td class="yes">✓</td><td>الأجهزة الخفيفة</td></tr>
     <tr><td class="t"><span class="nw">Gemma 4 E4B</span></td><td><bdi>Google</bdi></td><td><span class="nw">6.6 GB</span></td><td><span class="nw">12 GB</span></td><td class="yes">✓</td><td>الحواسيب العادية</td></tr>
@@ -578,7 +578,8 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
     <tr><td class="t">توقف التنزيل وظهرت رسالة خطأ</td><td>الصق أمر التنزيل نفسه مرة أخرى، وسيُكمل من حيث توقف.</td></tr>
     <tr><td class="t">رسالة <span class="lit">'ollama' is not recognized</span></td><td>أغلق <span class="lit">Command Prompt</span> وافتحه من جديد. وإن لم ينجح ذلك، فأعد تشغيل الجهاز.</td></tr>
     <tr><td class="t">خطأ في الذاكرة (يحتوي على <span class="lit">memory</span> أو <span class="lit">allocate</span>)</td><td>اختر نموذجًا أصغر من جدول صفحة 5. وإن أردت <span class="nw">Qwen3.8-27B</span> تحديدًا، فشغّل <span class="lit">start-lowmem.bat</span> بدلًا من <span class="lit">start.bat</span>.</td></tr>
-    <tr><td class="t">ظهور رسالة «المحرّك غير مشغَّل» في الأعلى</td><td>أُغلقت النافذة السوداء؛ شغّل <span class="lit">start.bat</span> مرة أخرى.</td></tr>
+    <tr><td class="t">ظهور رسالة «Ollama غير مشغَّل»</td><td>شغّل <span class="lit">start.bat</span> مرة أخرى (فهو يشغّل <bdi>Ollama</bdi> تلقائيًا)، أو افتح <bdi>Ollama</bdi> من قائمة «ابدأ».</td></tr>
+    <tr><td class="t">ظهور رسالة «لا يوجد نموذج»</td><td>لم تنزّل أي نموذج بعد؛ انسخ أمر التنزيل من صفحة 6.</td></tr>
     <tr><td class="t">ظهور رسالة «النموذج قيد التحميل…»</td><td>انتظر من 20 إلى 60 ثانية؛ فالتشغيل الأول يستغرق بعض الوقت.</td></tr>
     <tr><td class="t">الإجابة بطيئة</td><td>هذا طبيعي. أغلق البرامج الثقيلة (كالألعاب أو المتصفح بعلامات تبويب كثيرة)، وأوقف «التفكير العميق».</td></tr>
     <tr><td class="t">جهازي أضعف من المطلوب</td><td>نزّل نموذجًا أصغر من جدول صفحة 5، ثم اختره من ⚙️ «الإعدادات».</td></tr>
