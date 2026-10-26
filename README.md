@@ -14,7 +14,7 @@
 
 ## 📘 [ابدأ من هنا: دليل التشغيل المصوّر (PDF)](دليل-التشغيل.pdf)
 
-دليل عربي من 11 صفحة يشرح كل شيء خطوة بخطوة بالصور، لأي شخص حتى لو لم تكن لديه خبرة بالحاسوب.
+دليل عربي من 9 صفحات يشرح كل شيء خطوة بخطوة بالصور، لأي شخص حتى لو لم تكن لديه خبرة بالحاسوب.
 **اضغط على الرابط أعلاه، ثم طبّق الخطوات بالترتيب.**
 
 <br>
@@ -69,31 +69,26 @@
 ollama pull qwen3.5:9b
 ```
 
-**3. نزّل هذا المشروع** بالأوامر التالية في `Command Prompt` نفسه، واحدًا تلو الآخر. سيُحفظ في مجلدك الشخصي باسم `offline-ai-main`:
+**3. نزّل هذا المشروع** من زر **Code ← Download ZIP**، ثم افتح مجلد `Downloads`، وانقر بزر الفأرة الأيمن على الملف المضغوط ← **Extract All**، وامسح المسار واكتب `D:\` ← **Extract**. بعدها افتح القرص `D:` وغيّر اسم المجلد `offline-ai-main` إلى `offline-ai`.
+
+> [!IMPORTANT]
+> **يجب أن يكون المشروع كاملًا في `D:\offline-ai`**، وفيه ملف `start.bat` مباشرةً (`D:\offline-ai\start.bat`). إذا لم يكن في جهازك قرص `D`، فاستخدم `C:\` و`C:` بدلًا منه.
+
+**4. شغّل الواجهة على نموذجك (المرة الأولى)**: افتح `Command Prompt`، وانتقل إلى مجلد المشروع:
 
 ```bash
-cd /d %USERPROFILE%
+cd /d D:\offline-ai
 ```
 
-```bash
-curl -Lo ai.zip https://github.com/mohammedmahdi0/offline-ai/archive/main.zip
-```
-
-```bash
-powershell Expand-Archive ai.zip . -Force
-```
-
-**4. شغّل الواجهة على نموذجك**: انتقل إلى مجلد المشروع، ثم اكتب `start.bat` متبوعًا باسم النموذج الذي نزّلته. وكرّر هذين الأمرين في كل مرة تريد فيها استخدام البرنامج:
-
-```bash
-cd /d %USERPROFILE%\offline-ai-main
-```
+ثم اكتب `start.bat` متبوعًا باسم النموذج الذي نزّلته:
 
 ```bash
 start.bat qwen3.5:9b
 ```
 
-سيشغّل `start.bat` برنامج Ollama تلقائيًا، ويفتح الواجهة في المتصفح على `http://localhost:5180` والنموذج جاهز. ويمكنك أيضًا النقر نقرًا مزدوجًا على `start.bat` لفتح الواجهة على آخر نموذج اخترته.
+سيشغّل `start.bat` برنامج Ollama تلقائيًا، ويفتح الواجهة في المتصفح على `http://localhost:5180` والنموذج جاهز.
+
+**في المرات التالية**: افتح المجلد `D:\offline-ai` وانقر نقرًا مزدوجًا على `start.bat`، فتُفتح الواجهة على آخر نموذج شغّلته.
 
 ### ⚠️ إذا ظهر خطأ `unable to allocate CUDA_Host buffer`
 
@@ -139,7 +134,7 @@ docs/guide/                       مصدر دليل التشغيل وصوره
 **llama-server** bundled inside Ollama, supports **image input**, an optional **thinking mode**, saved chats,
 light/dark themes, and shows tokens/second for every reply. No internet, no accounts, no telemetry.
 
-**Quick start:** install [Ollama](https://ollama.com/download) → pull a model from the table above (e.g. `ollama pull qwen3.5:9b`) → download this repo (Code → Download ZIP, or the `curl` commands above) → run `start.bat <model>` from its folder, e.g. `start.bat qwen3.5:9b`.
+**Quick start:** install [Ollama](https://ollama.com/download) → pull a model from the table above (e.g. `ollama pull qwen3.5:9b`) → download this repo (Code → Download ZIP), Extract All to `D:\` and rename the folder to `offline-ai` → first time, in a Command Prompt run `cd /d D:\offline-ai` then `start.bat <model>`, e.g. `start.bat qwen3.5:9b` → after that, just double-click `D:\offline-ai\start.bat` (opens the last model used).
 A full illustrated guide (Arabic) is in [`دليل-التشغيل.pdf`](دليل-التشغيل.pdf).
 
 ---
