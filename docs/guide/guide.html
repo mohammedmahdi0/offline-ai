@@ -1,0 +1,620 @@
+<!doctype html>
+<!-- Offline AI — دليل التشغيل خطوة بخطوة
+     (c) 2026 Mohammed Mahdi (محمد مهدي) — Instagram @mo.79u -->
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Offline AI — دليل التشغيل</title>
+<style>
+@font-face { font-family: Tajawal; font-weight: 400; src: url(../../assets/fonts/Tajawal-400.ttf); }
+@font-face { font-family: Tajawal; font-weight: 500; src: url(../../assets/fonts/Tajawal-500.ttf); }
+@font-face { font-family: Tajawal; font-weight: 700; src: url(../../assets/fonts/Tajawal-700.ttf); }
+@font-face { font-family: Tajawal; font-weight: 800; src: url(../../assets/fonts/Tajawal-800.ttf); }
+
+/* هوية محمد مهدي — الفيروزي على الأبيض */
+:root {
+  --bg: #0A1516; --ink: #0A1516; --ink-2: #33474A; --mut: #5E7375;
+  --acc: #00C9D1; --clay: #00767B; --soft: #E6F8F9; --soft-2: #F3FAFA; --line: #D6E4E5;
+  --warn-bg: #FFF4E5;
+}
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html, body { margin: 0; background: #8a9a9b; }
+body { font: 400 11pt/1.75 Tajawal, sans-serif; color: var(--ink); }
+.page {
+  width: 210mm; height: 297mm; margin: 0 auto 10mm; background: #fff; position: relative; overflow: hidden;
+  padding: 19mm 18mm 18mm; page-break-after: always; break-after: page;
+}
+.w66 { width: 66%; } .w72 { width: 72%; } .w88 { width: 88%; }
+.w66, .w72, .w88 { margin-inline: auto !important; }
+@media print { html, body { background: none; } .page { margin: 0; } }
+
+b, strong { font-weight: 800; }
+/* أسماء تظهر على الشاشة بالإنجليزي كما هي (أزرار، ملفات) */
+.lit { direction: ltr; unicode-bidi: isolate; font-weight: 800; white-space: nowrap; }
+.sub-steps { margin: 1.5mm 0 0; display: grid; gap: 1mm; }
+.sub-steps div, .ss-tag { display: flex; gap: 2mm; align-items: baseline; }
+.sub-steps .n, .ss-tag .n { flex: none; width: 5.5mm; height: 5.5mm; border-radius: 50%; display: inline-grid; place-items: center;
+  background: var(--clay); color: #fff; font-size: 9pt; transform: translateY(-0.4mm); }
+.ss-pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 3mm; align-items: center; }   /* RTL: «قبل» يمينًا ثم السهم ثم «بعد» */
+.ss-tag { font-size: 9.5pt; font-weight: 700; margin-bottom: 2mm; justify-content: center; }
+.ss-arrow { font-size: 18pt; color: var(--clay); font-weight: 800; }
+.ss-pair .ss { padding: 3.5mm 4mm 3mm; min-height: 38mm; }
+.ss-pair .ss h4 { font-size: 11pt; margin-bottom: 1.5mm; }
+.ss-pair .ss p { font-size: 7.6pt; margin-bottom: 2mm; }
+.ss-pair .ss .more { font-size: 8pt; }
+.ss-pair .ss .row { margin-top: 2.5mm; }
+.ss-pair .ss .row span { font-size: 8pt; padding: 1.2mm 3mm; }
+a { color: var(--clay); font-weight: 800; text-decoration: none; border-bottom: 1px solid currentColor; }
+
+/* إطار الصفحات */
+.runner { position: absolute; top: 9mm; inset-inline: 18mm; display: flex; justify-content: space-between; align-items: center;
+  font-size: 9pt; color: var(--mut); border-bottom: 1px solid var(--line); padding-bottom: 2.5mm; }
+.runner .brand { display: flex; align-items: center; gap: 2mm; font-weight: 800; color: var(--ink); }
+.foot { position: absolute; bottom: 8mm; inset-inline: 18mm; display: flex; justify-content: space-between; font-size: 8.8pt; color: var(--mut); }
+.foot .pn { font-weight: 800; color: var(--clay); }
+.mark { width: 7mm; height: 7mm; border-radius: 2mm; display: inline-grid; place-items: center;
+  background: radial-gradient(circle at 30% 25%, #00C5CD, var(--clay)); color: var(--bg); }
+.mark svg { width: 4.6mm; height: 4.6mm; }
+
+/* العناوين */
+.kicker { display: inline-flex; align-items: center; gap: 2.5mm; font-weight: 800; color: var(--clay); font-size: 11pt; margin: 4mm 0 1mm; }
+.step-no { width: 11mm; height: 11mm; border-radius: 3.2mm; display: grid; place-items: center; font-size: 16pt; font-weight: 800;
+  background: radial-gradient(circle at 30% 25%, #00C5CD, var(--clay)); color: var(--bg); box-shadow: 0 2mm 6mm rgba(0,197,205,.35); }
+h1 { font-size: 21pt; line-height: 1.3; margin: 0 0 1.5mm; font-weight: 800; }
+h2 { font-size: 13.5pt; line-height: 1.4; margin: 4.5mm 0 1.5mm; font-weight: 800; }
+p { margin: 0 0 2.5mm; }
+.lead { font-size: 11.6pt; color: var(--ink-2); margin-bottom: 3.5mm; }
+
+/* صور الشاشة */
+.shot { border: 1px solid var(--line); border-radius: 4mm; overflow: hidden; background: var(--soft-2); position: relative; margin: 3mm 0 2mm;
+  box-shadow: 0 2mm 8mm rgba(10,21,22,.10); }
+.shot img { display: block; width: 100%; }
+.shot.dark { background: #0c0c0c; border-color: #22383b; }
+.cap { font-size: 9.6pt; color: var(--mut); text-align: center; margin: 0 0 3.5mm; }
+.ring { position: absolute; border: 0.8mm solid #FF4D4D; border-radius: 3mm; box-shadow: 0 0 0 1.4mm rgba(255,77,77,.18); }
+.pin { position: absolute; width: 8mm; height: 8mm; margin: -4mm 0 0 -4mm; border-radius: 50%; display: grid; place-items: center;
+  background: #FF4D4D; color: #fff; font-weight: 800; font-size: 11pt; border: 0.6mm solid #fff; box-shadow: 0 1mm 3mm rgba(0,0,0,.35); }
+
+/* صندوق الأمر — النص نفسه قابل للتحديد والنسخ من ملف PDF؛ علامة > مرسومة بـ CSS فلا تُنسخ معه */
+.cmd { background: #FFFFFF; color: var(--ink); border-radius: 3.5mm 3.5mm 0 0; padding: 3.2mm 5mm; margin: 2.5mm 0 0; direction: ltr; text-align: left;
+  font: 700 12.5pt/1.5 Consolas, "Cascadia Mono", monospace; border: 0.5mm solid var(--clay); border-bottom: 0; }
+.cmd { padding-left: 11mm; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 1l5 4-5 4' fill='none' stroke='%2300767B' stroke-width='1.8'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-size: 3.4mm; background-position: 5mm center; }
+.copy { background: var(--soft); color: var(--ink-2); border: 0.5mm solid var(--clay); border-top: 1px dashed #7FC4C8; border-radius: 0 0 3.5mm 3.5mm;
+  font-size: 9.2pt; padding: 1.4mm 5mm; margin: 0 0 3mm; display: flex; gap: 2mm; align-items: center; }
+.copy b { color: var(--clay); }
+.key { display: inline-block; direction: ltr; border: 1px solid #9DB5B7; border-bottom-width: 2px; border-radius: 1.4mm; padding: 0 1.6mm;
+  font: 700 9.5pt/1.5 Tajawal, sans-serif; background: #fff; color: var(--ink); }
+.combo { direction: ltr; unicode-bidi: isolate; display: inline-block; white-space: nowrap; }
+.copy .key { background: #fff; }
+
+.tip, .warn, .ok { border-radius: 3.5mm; padding: 2.4mm 4mm; margin: 2.5mm 0; font-size: 10.6pt; display: flex; gap: 3mm; align-items: flex-start; }
+.tip { background: var(--soft); border-inline-start: 1.4mm solid var(--acc); }
+.warn { background: var(--warn-bg); border-inline-start: 1.4mm solid #F08A24; }
+.ok { background: #E9F8EF; border-inline-start: 1.4mm solid #2BB673; }
+.tip .i, .warn .i, .ok .i { font-size: 14pt; line-height: 1.5; }
+ol.steps { margin: 2mm 0 3mm; padding-inline-start: 6mm; }
+ol.steps li { margin: 1.4mm 0; }
+ol.steps li::marker { color: var(--clay); font-weight: 800; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; align-items: start; }
+
+table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 10.4pt; margin: 2.5mm 0; border: 1px solid var(--line); border-radius: 3.5mm; overflow: hidden; }
+th { background: var(--bg); color: #fff; font-weight: 800; padding: 1.8mm 3.5mm; text-align: start; }
+td { padding: 1.6mm 3.5mm; border-top: 1px solid var(--line); vertical-align: top; }
+tr:nth-child(even) td { background: var(--soft-2); }
+td.t { font-weight: 800; }
+td.yes { color: #1E9E5A; font-weight: 800; } td.no { color: #C9302C; font-weight: 800; }
+
+/* رسوم توضيحية (مرسومة، وليست صورًا حقيقية) */
+.illus { border: 1px dashed #9DB5B7; border-radius: 4mm; padding: 4mm; background: linear-gradient(180deg, #F7FBFB, #EEF5F5); position: relative; margin: 3mm 0 2mm; }
+.illus .lbl { position: absolute; top: 2mm; left: 3mm; font-size: 8pt; color: var(--mut); }
+.win { direction: ltr; text-align: left; font-family: "Segoe UI", sans-serif; background: #fff; border-radius: 2.5mm; box-shadow: 0 2mm 7mm rgba(0,0,0,.18); overflow: hidden; margin: 0 auto; }
+.win .bar { height: 8mm; display: flex; align-items: center; padding: 0 3mm; font-size: 9pt; color: #333; background: #F3F3F3; gap: 2mm; }
+.win .bar .x { margin-left: auto; letter-spacing: 3mm; color: #777; }
+.btn-w { display: inline-block; padding: 1.8mm 6mm; border-radius: 1.5mm; font-size: 10pt; border: 1px solid #ccc; background: #fff; }
+.btn-w.pri { background: #0067C0; color: #fff; border-color: #0067C0; }
+.hl { outline: 0.8mm solid #FF4D4D; outline-offset: 1mm; border-radius: 1.5mm; }
+.ss { background: #0B5CAD; color: #fff; padding: 4.5mm 6mm 4mm; }
+.ss h4 { margin: 0 0 2mm; font: 600 14pt "Segoe UI", sans-serif; }
+.ss p { font-size: 9.5pt; margin: 0 0 3mm; opacity: .95; }
+.ss .more { text-decoration: underline; font-size: 9.5pt; }
+.ss .row { display: flex; justify-content: flex-end; gap: 2mm; margin-top: 3mm; }
+.ss .row span { border: 1px solid #fff; padding: 1.6mm 5mm; font-size: 9.5pt; }
+
+/* الغلاف والصفحة الأخيرة — أبيض بالفيروزي */
+.cover, .back { background: #fff; padding: 22mm 18mm; }
+.cover::before, .back::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3mm; background: linear-gradient(90deg, var(--clay), #00C5CD); }
+.cover .glow { position: absolute; width: 170mm; height: 170mm; border-radius: 50%; background: radial-gradient(circle, rgba(0,201,209,.16), transparent 62%); top: -60mm; left: -60mm; }
+.cover .dots { position: absolute; top: 14mm; left: 16mm; width: 46mm; height: 30mm;
+  background-image: radial-gradient(rgba(0,118,123,.25) 0.5mm, transparent 0.6mm); background-size: 4mm 4mm; }
+.big-mark { width: 22mm; height: 22mm; border-radius: 6mm; display: grid; place-items: center; color: var(--bg); position: relative;
+  background: radial-gradient(circle at 30% 25%, #00C5CD, var(--clay)); box-shadow: 0 4mm 14mm rgba(0,150,156,.35); }
+.big-mark svg { width: 13mm; height: 13mm; }
+.cover .name { font-size: 34pt; font-weight: 800; margin: 8mm 0 0; line-height: 1.2; color: var(--ink); position: relative; }
+.cover h1 { font-size: 27pt; margin: 2mm 0 2mm; position: relative; }
+.cover h1 em { font-style: normal; color: var(--clay); }
+.cover .sub { color: var(--ink-2); font-size: 13pt; position: relative; }
+.cover .pills { display: flex; gap: 3mm; flex-wrap: wrap; margin: 6mm 0 8mm; position: relative; }
+.cover .pills span { border: 1px solid rgba(0,118,123,.35); color: var(--clay); background: var(--soft); padding: 1.4mm 4mm; border-radius: 99mm; font-size: 10.5pt; font-weight: 700; }
+.cover .hero-shot { border-radius: 4mm; overflow: hidden; border: 1px solid var(--line); position: relative;
+  box-shadow: 0 6mm 18mm rgba(10,21,22,.16), 0 0 0 1.2mm rgba(0,201,209,.14); }
+.cover .hero-shot img { display: block; width: 100%; }
+.author { display: flex; align-items: center; gap: 4mm; }
+.author img { width: 15mm; height: 15mm; border-radius: 50%; box-shadow: 0 0 0 0.7mm #00C5CD, 0 0 6mm rgba(0,197,205,.4); }
+.author .n { font-weight: 800; font-size: 13.5pt; line-height: 1.3; }
+.author .b { color: var(--mut); font-size: 10pt; }
+.author .h { margin-inline-start: auto; direction: ltr; color: var(--clay); font-weight: 800; font-size: 12pt; }
+.cover .author { position: absolute; bottom: 14mm; inset-inline: 18mm; border-top: 1px solid var(--line); padding-top: 5mm; }
+.contact { margin-inline-start: auto; display: flex; flex-direction: column; gap: 1.6mm; align-items: flex-end; }
+.contact a { font-size: 10.5pt; padding: 1.2mm 3.5mm; border: 1px solid rgba(0,118,123,.35); border-radius: 99mm; background: var(--soft); }
+/* صفحة النموذج */
+.facts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3mm; margin: 3mm 0; }
+.fact { border: 1px solid var(--line); border-radius: 3.5mm; padding: 3mm 3.5mm; background: linear-gradient(180deg, #fff, var(--soft-2)); }
+.fact .v { font-size: 14pt; font-weight: 800; color: var(--clay); line-height: 1.3; }
+.fact .k { font-size: 9.5pt; font-weight: 700; color: var(--ink); margin-bottom: 1mm; }
+.fact p { font-size: 8.8pt; line-height: 1.6; color: var(--ink-2); margin: 0; }
+.bench { display: grid; gap: 2mm; margin: 2mm 0 1mm; }
+.bench > div { display: grid; grid-template-columns: 50mm 1fr 12mm; align-items: center; gap: 3mm; }
+.bench .bn { font-weight: 800; font-size: 10pt; line-height: 1.25; }
+.bench .bn small { display: block; font-weight: 500; color: var(--mut); font-size: 8.5pt; }
+.bench .bar { height: 4mm; border-radius: 99mm; background: var(--soft); overflow: hidden; }
+.bench .bar i { display: block; height: 100%; border-radius: 99mm; background: linear-gradient(270deg, var(--clay), #00C5CD); }
+.nb { white-space: nowrap; }
+.nw { direction: ltr; unicode-bidi: isolate; white-space: nowrap; display: inline-block; }
+.bench b { color: var(--clay); font-size: 11pt; text-align: center; }
+
+/* صفحة اختيار النموذج */
+table.models { font-size: 9.6pt; }
+table.models th, table.models td { padding: 1.5mm 2.4mm; }
+table.models tr.pick td { background: #E3F7F2; }
+.cmd-list { display: grid; gap: 1.6mm; margin: 2mm 0 2.5mm; }
+.cmd-list > div { display: grid; grid-template-columns: 36mm 1fr; align-items: center; gap: 3mm; }
+.lbl2 { font-weight: 800; font-size: 9.8pt; }
+.cmd.sm { margin: 0; border-radius: 2.5mm; border-bottom: 0.5mm solid var(--clay); font-size: 10.5pt; padding-top: 1.6mm; padding-bottom: 1.6mm; }
+
+/* الغلاف: لقطة محادثة مقصوصة من الأعلى */
+.hero-crop { height: 98mm; }
+.hero-crop img { height: 100%; object-fit: cover; object-position: top; }
+table.models.all { font-size: 9.2pt; }
+table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
+.cmd-list.tight { gap: 1.2mm; }
+.cmd-list.tight .cmd.sm { padding-top: 1.2mm; padding-bottom: 1.2mm; font-size: 10pt; }
+/* دليل سريع لاختيار النموذج */
+.pick-guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin: 3mm 0; }
+.pick-guide div { border: 1px solid var(--line); border-radius: 3.5mm; padding: 2.5mm 3mm; text-align: center; background: var(--soft-2); }
+.pick-guide b { display: block; font-size: 10pt; }
+.pick-guide span { color: var(--clay); font-weight: 800; font-size: 10.5pt; }
+
+/* لقطة الإعدادات مقصوصة على النافذة */
+.crop-settings { aspect-ratio: 1.6; margin: 0; }
+.crop-settings img { position: absolute; width: 246.3%; max-width: none; left: -73.2%; top: -13.9%; }
+
+/* صورة المطوّر على الغلاف */
+.cover-photo { position: absolute; top: 20mm; left: 18mm; width: 46mm; text-align: center; }
+.cover-photo img { width: 46mm; height: 46mm; border-radius: 50%; display: block; object-fit: cover;
+  box-shadow: 0 0 0 1.2mm #fff, 0 0 0 2mm #00C5CD, 0 5mm 16mm rgba(0,150,156,.35); }
+.cover-photo span { display: block; margin-top: 3mm; font-weight: 800; font-size: 11pt; color: var(--clay); }
+
+.toc { list-style: none; padding: 0; margin: 4mm 0; }
+.toc li { display: flex; align-items: center; gap: 4mm; padding: 1.5mm 0; border-bottom: 1px dashed var(--line); font-size: 11.2pt; }
+.toc li .no { width: 7.5mm; height: 7.5mm; border-radius: 2.6mm; background: var(--soft); color: var(--clay); font-weight: 800; display: grid; place-items: center; }
+.toc li .pg { margin-inline-start: auto; color: var(--mut); font-size: 10.5pt; }
+
+.legend { display: grid; grid-template-columns: 1fr 1fr; gap: 1mm 6mm; margin: 2.5mm 0; font-size: 10.2pt; line-height: 1.6; }
+.legend div { display: flex; gap: 2.5mm; align-items: flex-start; }
+.legend b.n { flex: none; width: 6.5mm; height: 6.5mm; border-radius: 50%; background: #FF4D4D; color: #fff; display: grid; place-items: center; font-size: 9.5pt; margin-top: .8mm; }
+.back .big { font-size: 26pt; font-weight: 800; line-height: 1.4; margin: 26mm 0 4mm; }
+.back .big em { font-style: normal; color: var(--clay); }
+.back .card { margin-top: 12mm; border: 1px solid var(--line); background: var(--soft-2); border-radius: 5mm; padding: 7mm; }
+.back .links { display: flex; gap: 4mm; margin-top: 6mm; }
+.back .links a { flex: 1; text-align: center; padding: 3mm; border-radius: 3mm; border: 1px solid rgba(0,118,123,.35); background: #fff; }
+.back .legal { position: absolute; bottom: 14mm; inset-inline: 18mm; color: var(--mut); font-size: 9pt; line-height: 1.7; border-top: 1px solid var(--line); padding-top: 4mm; }
+</style>
+</head>
+<body>
+<script>
+  // معاينة: guide.html?p=3 تعرض الصفحة 3 وحدها (لفحص كل صفحة كصورة)
+  const only = new URLSearchParams(location.search).get('p');
+  if (only) document.write('<style>body{background:#fff}.page{display:none;margin:0}.page:nth-of-type(' + (+only) + '){display:block}</style>');
+</script>
+<svg width="0" height="0" style="position:absolute"><symbol id="m" viewBox="0 0 24 24"><path d="M10 2.5c.6 4.4 2.6 6.4 7 7-4.4.6-6.4 2.6-7 7-.6-4.4-2.6-6.4-7-7 4.4-.6 6.4-2.6 7-7Z" fill="currentColor"/><path d="M18 13.5c.3 2.2 1.3 3.2 3.5 3.5-2.2.3-3.2 1.3-3.5 3.5-.3-2.2-1.3-3.2-3.5-3.5 2.2-.3 3.2-1.3 3.5-3.5Z" fill="currentColor"/></symbol></svg>
+
+<!-- ═════════ 1. الغلاف ═════════ -->
+<section class="page cover">
+  <div class="glow"></div>
+  <div class="cover-photo"><img src="../../assets/logo.png" alt="محمد مهدي"><span>محمد مهدي</span></div>
+  <div class="big-mark"><svg><use href="#m"/></svg></div>
+  <div class="name" dir="ltr" style="text-align:right">Offline AI</div>
+  <h1>دليل التشغيل <em>خطوة بخطوة</em></h1>
+  <div class="sub">شغّل نموذج ذكاء اصطناعي متقدّمًا على جهازك، دون اتصال بالإنترنت، ودون اشتراك، ودون الحاجة إلى أي خبرة تقنية.</div>
+  <div class="pills"><span>دون إنترنت</span><span>مجاني بالكامل</span><span>نماذج <bdi>Qwen · Google · OpenAI</bdi></span><span>يدعم العربية</span></div>
+  <div class="hero-shot hero-crop"><img src="img/ui-code-light.png" alt=""></div>
+  <div class="author">
+    <div><div class="n">إعداد وتصميم: محمد مهدي</div><div class="b">طالب هندسة ذكاء اصطناعي</div></div>
+    <div class="contact">
+      <a href="https://instagram.com/mo.79u" dir="ltr">Instagram · @mo.79u</a>
+      <a href="https://wa.me/9647838533230" dir="ltr">WhatsApp · +964 783 853 3230</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ 2. قبل البدء ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>قبل البدء</span></div>
+
+  <div class="kicker">قبل البدء</div>
+  <h1>ما هو <bdi>Offline AI</bdi>؟</h1>
+  <p class="lead">يتيح لك <bdi>Offline AI</bdi> التحدث مع نموذج ذكاء اصطناعي (مثل <bdi>ChatGPT</bdi>) <b>يعمل على جهازك مباشرةً</b>. وتختار بنفسك النموذج الذي يناسب جهازك، من نموذج خفيف يعمل على أبسط الحواسيب إلى نموذج قوي للأجهزة المتقدمة. وبعد تنزيله مرة واحدة يعمل دون إنترنت، ولا تغادر محادثاتك جهازك أبدًا.</p>
+
+  <h2>📋 المتطلبات</h2>
+  <table>
+    <tr><th style="width:34%">العنصر</th><th>الحد المطلوب</th></tr>
+    <tr><td class="t">نظام التشغيل</td><td><bdi>Windows 10</bdi> أو <bdi>Windows 11</bdi></td></tr>
+    <tr><td class="t">الذاكرة (<bdi>RAM</bdi>)</td><td>من <b><bdi>4 GB</bdi></b> إلى <b><bdi>32 GB</bdi></b> حسب النموذج الذي تختاره (صفحة 5)</td></tr>
+    <tr><td class="t">بطاقة الرسوميات</td><td>غير مطلوبة للنماذج الصغيرة، ومستحسنة (<bdi>NVIDIA</bdi>) للنماذج الكبيرة</td></tr>
+    <tr><td class="t">المساحة الفارغة</td><td>من <bdi>2 GB</bdi> إلى <bdi>25 GB</bdi> حسب النموذج</td></tr>
+    <tr><td class="t">الإنترنت</td><td>مرة واحدة فقط لتنزيل البرنامج والنموذج</td></tr>
+  </table>
+
+  <div class="tip"><span class="i">💡</span><div><b>كيف أعرف حجم الذاكرة في جهازي؟</b> اضغط <span class="combo"><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">Esc</span></span> معًا لفتح <span class="lit">Task Manager</span>، ثم انتقل إلى تبويب <span class="lit">Performance</span> واختر <span class="lit">Memory</span>؛ الرقم الكبير في الأعلى هو حجم الذاكرة.</div></div>
+
+  <h2>🗺️ محتويات الدليل</h2>
+  <ul class="toc">
+    <li><span class="no">★</span>تعرّف على نماذج <bdi>Qwen</bdi><span class="pg">صفحة 3</span></li>
+    <li><span class="no">1</span>تثبيت برنامج <bdi>Ollama</bdi><span class="pg">صفحة 4</span></li>
+    <li><span class="no">2</span>اختيار النموذج المناسب لجهازك (<bdi>Qwen</bdi> و<bdi>Google</bdi> و<bdi>OpenAI</bdi>) وتنزيله<span class="pg">صفحة 5</span></li>
+    <li><span class="no">3</span>تنزيل الواجهة من <bdi>GitHub</bdi><span class="pg">صفحة 7</span></li>
+    <li><span class="no">4</span>التشغيل بنقرة واحدة<span class="pg">صفحة 8</span></li>
+    <li><span class="no">5</span>طريقة الاستخدام والتبديل بين النماذج<span class="pg">صفحة 9</span></li>
+    <li><span class="no">؟</span>حل المشكلات والأسئلة الشائعة<span class="pg">صفحة 10</span></li>
+  </ul>
+
+  <div class="tip"><span class="i">📋</span><div><b>يمكنك نسخ أي أمر في هذا الدليل مباشرةً:</b> حدّده بالفأرة داخل المربع، ثم اضغط <span class="combo"><span class="key">Ctrl</span> + <span class="key">C</span></span> للنسخ، و<span class="combo"><span class="key">Ctrl</span> + <span class="key">V</span></span> للصق.<br>ولفتح أي رابط في تبويب جديد دون إغلاق هذا الدليل، اضغط <span class="key">Ctrl</span> أثناء النقر على الرابط.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">2</span></div>
+</section>
+
+<!-- ═════════ 3. تعرّف على نماذج Qwen ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>تعرّف على النماذج</span></div>
+  <div class="kicker">★ تعرّف على النماذج</div>
+  <h1>نماذج <bdi>Qwen</bdi>: العقل الذي يعمل على جهازك</h1>
+  <p class="lead">جميع النماذج في هذا الدليل من عائلة <b><bdi>Qwen</bdi></b> التي يطوّرها <b>فريق <bdi>Qwen</bdi> التابع لشركة <span class="nw">Alibaba Cloud</span></b> (مجموعة علي بابا)، وهي نماذج مفتوحة المصدر تتراوح أحجامها بين نموذج صغير يعمل على أبسط الحواسيب، ونماذج كبيرة تقترب من أداء الخدمات السحابية. وإلى جانبها يدعم المشروع نماذج من <bdi>Google</bdi> و<bdi>OpenAI</bdi> (صفحة 5).</p>
+
+  <div class="facts">
+    <div class="fact"><div class="v">من <bdi>0.8</bdi> إلى <bdi>35</bdi> مليار</div><div class="k">معامل (<bdi>Parameters</bdi>)</div><p>المعاملات هي القيم التي تعلّمها النموذج أثناء التدريب، وكلما زاد عددها زادت قدرته على الفهم والاستنتاج.</p></div>
+    <div class="fact"><div class="v"><bdi>256K</bdi></div><div class="k">طول السياق</div><p>يقرأ نحو 262 ألف رمز دفعةً واحدة (ما يعادل كتابًا كاملًا). وفي هذا المشروع نستخدم 8 آلاف رمز لتوفير الذاكرة.</p></div>
+    <div class="fact"><div class="v">نص + صور</div><div class="k">أنواع المدخلات</div><p>تفهم جميع النماذج في الدليل النصوص والصور معًا: صف له صورة، أو اسأله عن مستند أو جدول مصوَّر.</p></div>
+    <div class="fact"><div class="v">تفكير عميق</div><div class="k">وضع الاستنتاج</div><p>تستطيع «التفكير» خطوة بخطوة قبل الإجابة عن الأسئلة الصعبة، ويمكنك تشغيل هذا الوضع أو إيقافه.</p></div>
+    <div class="fact"><div class="v"><bdi>201</bdi> لغة ولهجة</div><div class="k">دعم اللغات</div><p>تدعم نماذج <span class="nw">Qwen3.5</span> أكثر من مئتي لغة ولهجة، ومنها العربية.</p></div>
+    <div class="fact"><div class="v">مفتوحة المصدر</div><div class="k">الترخيص</div><p>يُنشر <span class="nw">Qwen3.8-27B</span> بترخيص <bdi>Apache 2.0</bdi> الذي يسمح بالاستخدام المجاني، حتى في المشاريع التجارية.</p></div>
+  </div>
+
+  <h2>🏆 الأقوى في هذا الدليل: <bdi>Qwen3.8-27B</bdi></h2>
+  <p style="font-size:10.4pt">نموذج «كثيف» (<bdi>Dense</bdi>) يضم <b><bdi>27.3</bdi> مليار معامل</b> في 64 طبقة، ويجمع بين تقنيتَي <span class="nw">Gated DeltaNet</span> و <span class="nw">Gated Attention</span>. نتائجه في اختبارات معروفة:</p>
+  <div class="bench">
+    <div><span class="bn"><bdi>LiveCodeBench v6</bdi><small>البرمجة</small></span><span class="bar"><i style="width:90.3%"></i></span><b>90.3</b></div>
+    <div><span class="bn"><bdi>OmniDocBench 1.5</bdi><small>فهم المستندات</small></span><span class="bar"><i style="width:91.1%"></i></span><b>91.1</b></div>
+    <div><span class="bn"><bdi>GPQA Diamond</bdi><small>أسئلة علمية متقدمة</small></span><span class="bar"><i style="width:89.2%"></i></span><b>89.2</b></div>
+    <div><span class="bn"><bdi>OSWorld-Verified</bdi><small>تنفيذ مهام على الحاسوب</small></span><span class="bar"><i style="width:84.3%"></i></span><b>84.3</b></div>
+  </div>
+  <p class="cap" style="text-align:start">النتائج منشورة من فريق <bdi>Qwen</bdi> على صفحة النموذج الرسمية في <a href="https://huggingface.co/Qwen/Qwen3.8-27B">Hugging Face</a>، وتخص النسخة الكاملة غير المضغوطة.</p>
+
+  <div class="tip"><span class="i">💾</span><div><b>لماذا تعمل هذه النماذج على جهاز شخصي؟</b> لأن الأوامر في هذا الدليل تنزّل نسخًا مضغوطة (<bdi>Q4</bdi>) تُخزَّن فيها المعاملات بدقة <span class="nb">4 بت</span> تقريبًا بدلًا من <span class="nb">16 بت</span>؛ فينخفض حجم <span class="nw">Qwen3.8-27B</span> مثلًا من نحو <bdi>56 GB</bdi> إلى نحو <bdi>17 GB</bdi>، مع انخفاض طفيف في الدقة.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">3</span></div>
+</section>
+
+<!-- ═════════ 4. الخطوة الأولى ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 1 من 5</span></div>
+  <div class="kicker"><span class="step-no">1</span>الخطوة الأولى</div>
+  <h1>تثبيت برنامج <bdi>Ollama</bdi></h1>
+  <p class="lead"><bdi>Ollama</bdi> هو البرنامج الذي يشغّل نماذج الذكاء الاصطناعي على جهازك، وهو مجاني ورسمي.</p>
+
+  <ol class="steps">
+    <li>افتح الرابط التالي في المتصفح: <a href="https://ollama.com/download/windows">ollama.com/download</a></li>
+    <li>اضغط على <span class="lit">Download manually</span> (المحدد باللون الأحمر 👇) لتنزيل ملف التثبيت <span class="lit">OllamaSetup.exe</span>.</li>
+  </ol>
+  <div class="shot w66"><img src="img/ollama-download.png" alt="">
+    <div class="ring" style="left:78.4%; top:52.4%; width:20%; height:6.8%"></div>
+  </div>
+  <p class="cap">صفحة التنزيل الرسمية لبرنامج <bdi>Ollama</bdi></p>
+
+  <ol class="steps" start="3">
+    <li>افتح الملف الذي نزّلته بالنقر عليه نقرًا مزدوجًا، ثم اضغط <span class="lit">Install</span> وانتظر حتى يكتمل التثبيت.</li>
+  </ol>
+  <div class="illus" style="padding:4mm 20mm">
+    <span class="lbl">شكل توضيحي</span>
+    <div class="win" style="width:110mm">
+      <div class="bar">🦙 Setup - Ollama <span class="x">— ✕</span></div>
+      <div style="padding:4mm 6mm; font-size:10pt">Welcome to Ollama<br><span style="color:#666;font-size:9pt">Click Install to continue.</span>
+        <div style="text-align:right;margin-top:3mm"><span class="btn-w pri hl">Install</span> <span class="btn-w">Cancel</span></div></div>
+    </div>
+  </div>
+
+  <div class="ok"><span class="i">✅</span><div><b>تمّ بنجاح!</b> إذا ظهرت أيقونة <bdi>Ollama</bdi> 🦙 بجوار الساعة أسفل يمين الشاشة، فهذا يعني أن البرنامج يعمل.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">4</span></div>
+</section>
+
+<!-- ═════════ 5. الخطوة الثانية (أ): اختر نموذجك ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 2 من 5</span></div>
+  <div class="kicker"><span class="step-no">2</span>الخطوة الثانية (أ)</div>
+  <h1>اختر النموذج المناسب لجهازك</h1>
+  <p class="lead">لا يحتاج كل جهاز إلى النموذج الأكبر. ابحث في الجدول عن حجم الذاكرة (<bdi>RAM</bdi>) في جهازك، واختر نموذجًا يناسبه. الجدول مرتّب من الأخف إلى الأثقل؛ فكلما نزلت كانت الإجابات أدق، لكن النموذج يحتاج إلى ذاكرة أكبر ويكون أبطأ.</p>
+
+  <table class="models all">
+    <tr><th>النموذج</th><th>الشركة</th><th>الحجم</th><th>الذاكرة (<bdi>RAM</bdi>)</th><th>الصور</th><th>مناسب لـ</th></tr>
+    <tr><td class="t"><span class="nw">Qwen3.5-0.8B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">1.3 GB</span></td><td><span class="nw">4 GB</span></td><td class="yes">✓</td><td>الأجهزة الضعيفة والتجربة السريعة</td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.5-2B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">3 GB</span></td><td><span class="nw">8 GB</span></td><td class="yes">✓</td><td>الأسئلة اليومية البسيطة</td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.5-4B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">4 GB</span></td><td><span class="nw">8 GB</span></td><td class="yes">✓</td><td>الحواسيب العادية</td></tr>
+    <tr><td class="t"><span class="nw">Gemma 4 E2B</span></td><td><bdi>Google</bdi></td><td><span class="nw">4.6 GB</span></td><td><span class="nw">8 GB</span></td><td class="yes">✓</td><td>الأجهزة الخفيفة</td></tr>
+    <tr><td class="t"><span class="nw">Gemma 4 E4B</span></td><td><bdi>Google</bdi></td><td><span class="nw">6.6 GB</span></td><td><span class="nw">12 GB</span></td><td class="yes">✓</td><td>الحواسيب العادية</td></tr>
+    <tr class="pick"><td class="t"><span class="nw">Qwen3.5-9B</span> ⭐</td><td><bdi>Alibaba</bdi></td><td><span class="nw">7 GB</span></td><td><span class="nw">16 GB</span></td><td class="yes">✓</td><td>معظم الاستخدامات بجودة عالية</td></tr>
+    <tr><td class="t"><span class="nw">Gemma 4 12B</span></td><td><bdi>Google</bdi></td><td><span class="nw">8 GB</span></td><td><span class="nw">16 GB</span></td><td class="yes">✓</td><td>توازن ممتاز بين السرعة والدقة</td></tr>
+    <tr><td class="t"><span class="nw">gpt-oss-20B</span></td><td><bdi>OpenAI</bdi></td><td><span class="nw">14 GB</span></td><td><span class="nw">16 GB</span></td><td class="no">✗</td><td>التفكير والبرمجة</td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.8-27B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">17 GB</span></td><td><span class="nw">32 GB</span></td><td class="yes">✓</td><td>أعلى دقة في هذا الدليل</td></tr>
+    <tr><td class="t"><span class="nw">Gemma 4 26B</span></td><td><bdi>Google</bdi></td><td><span class="nw">18 GB</span></td><td><span class="nw">32 GB</span></td><td class="yes">✓</td><td>سريع رغم حجمه (<bdi>MoE</bdi>)</td></tr>
+    <tr><td class="t"><span class="nw">Gemma 4 31B</span></td><td><bdi>Google</bdi></td><td><span class="nw">20 GB</span></td><td><span class="nw">32 GB</span></td><td class="yes">✓</td><td>أعلى دقة من <bdi>Google</bdi></td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.6-35B-A3B</span></td><td><bdi>Alibaba</bdi></td><td><span class="nw">24 GB</span></td><td><span class="nw">32 GB</span> + <span class="nw">Page File</span></td><td class="yes">✓</td><td>سريع رغم حجمه (<bdi>MoE</bdi>)</td></tr>
+  </table>
+  <p class="cap" style="text-align:start">⭐ الخيار المقترح لأغلب الأجهزة الحديثة. نماذج <bdi>Qwen</bdi> من <bdi>Alibaba Cloud</bdi>، ونماذج <bdi>Gemma</bdi> من <bdi>Google DeepMind</bdi>، و<bdi>gpt-oss</bdi> من <bdi>OpenAI</bdi>. الأحجام حسب مكتبة <a href="https://ollama.com/library">Ollama</a>.</p>
+
+  <div class="pick-guide">
+    <div><b>ذاكرة جهازك <span class="nw">8 GB</span></b><span>اختر <span class="nw">Qwen3.5-4B</span></span></div>
+    <div><b>ذاكرة جهازك <span class="nw">16 GB</span></b><span>اختر <span class="nw">Qwen3.5-9B</span> ⭐</span></div>
+    <div><b>ذاكرة جهازك <span class="nw">32 GB</span> أو أكثر</b><span>اختر <span class="nw">Qwen3.8-27B</span></span></div>
+  </div>
+
+  <div class="tip"><span class="i">🧠</span><div><b>ما معنى <bdi>MoE</bdi>؟</b> نموذج لا يعمل من معاملاته في كل إجابة إلا جزء صغير (نحو 3–4 مليارات)، لذا يكون أسرع من حجمه، لكنه يحتاج إلى ذاكرة كافية لتحميله كاملًا. <span class="nw">gpt-oss-20B</span> لا يفهم الصور، وستنبّهك الواجهة إن أرفقت صورة أثناء استخدامه.</div></div>
+  <div class="warn"><span class="i">ℹ️</span><div><b>ماذا عن <bdi>Anthropic</bdi> (<bdi>Claude</bdi>)؟</b> لا تتوفر حاليًا نماذج مفتوحة منها يمكن تشغيلها على الجهاز؛ إذ يعمل <bdi>Claude</bdi> عبر الإنترنت فقط.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">5</span></div>
+</section>
+
+<!-- ═════════ 6. الخطوة الثانية (ب): نزّل النموذج ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 2 من 5</span></div>
+  <div class="kicker"><span class="step-no">2</span>الخطوة الثانية (ب)</div>
+  <h1>نزّل النموذج الذي اخترته</h1>
+
+  <div class="grid2">
+    <div>
+      <ol class="steps">
+        <li>اضغط زر <bdi>Windows</bdi> ⊞ في لوحة المفاتيح، واكتب <span class="lit">cmd</span></li>
+        <li>افتح <span class="lit">Command Prompt</span></li>
+        <li>انسخ أمر النموذج الذي اخترته من القائمة أدناه، والصقه فيه، ثم اضغط <span class="key">Enter</span></li>
+      </ol>
+    </div>
+    <div class="illus" style="padding:5mm 6mm; margin-top:1mm">
+      <span class="lbl">شكل توضيحي</span>
+      <div class="win" style="width:100%">
+        <div class="bar" style="background:#fff;border-bottom:1px solid #eee">🔍 <span style="font-size:10pt">cmd</span></div>
+        <div style="padding:3mm 4mm; font-size:9.5pt; display:flex; gap:3mm; align-items:center" class="hl">
+          <span style="background:#111;color:#fff;font-size:7pt;padding:1mm 1.5mm;border-radius:1mm">C:\</span>
+          <span><b>Command Prompt</b><br><span style="color:#777;font-size:8pt">App</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cmd-list tight">
+    <div><span class="lbl2"><span class="nw">Qwen3.5-0.8B</span></span><div class="cmd sm">ollama pull qwen3.5:0.8b</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.5-2B</span></span><div class="cmd sm">ollama pull qwen3.5:2b</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.5-4B</span></span><div class="cmd sm">ollama pull qwen3.5:4b</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 E2B</span></span><div class="cmd sm">ollama pull gemma4:e2b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 E4B</span></span><div class="cmd sm">ollama pull gemma4:e4b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.5-9B</span> ⭐</span><div class="cmd sm">ollama pull qwen3.5:9b</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 12B</span></span><div class="cmd sm">ollama pull gemma4:12b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">gpt-oss-20B</span></span><div class="cmd sm">ollama pull gpt-oss:20b</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.8-27B</span></span><div class="cmd sm">ollama pull qwen3.8:27b-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 26B</span></span><div class="cmd sm">ollama pull gemma4:26b-a4b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 31B</span></span><div class="cmd sm">ollama pull gemma4:31b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.6-35B-A3B</span></span><div class="cmd sm">ollama pull qwen3.6:35b-a3b-q4_K_M</div></div>
+  </div>
+  <p class="cap" style="text-align:start">📋 حدّد سطر الأمر وانسخه بـ <span class="combo"><span class="key">Ctrl</span>+<span class="key">C</span></span>، ثم الصقه في <span class="lit">Command Prompt</span> بالنقر بزر الفأرة الأيمن أو بـ <span class="combo"><span class="key">Ctrl</span>+<span class="key">V</span></span>.</p>
+
+  <div class="grid2" style="align-items:center; gap:4mm">
+    <div class="shot dark" style="margin:0"><img src="img/pull-progress.png" alt=""></div>
+    <div>
+      <p style="margin:0 0 1.5mm; font-size:10.2pt">سيظهر شريط تنزيل كهذا؛ أبقِ النافذة مفتوحة حتى تظهر كلمة <span class="lit">success</span> في النهاية.</p>
+      <p style="margin:0; font-size:10.2pt"><b>⚠️ إذا توقف التنزيل</b> بسبب انقطاع الإنترنت، فالصق <b>الأمر نفسه</b> مرة أخرى، وسيُكمل من حيث توقف.</p>
+    </div>
+  </div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">6</span></div>
+</section>
+
+<!-- ═════════ 5. الخطوة الثالثة ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 3 من 5</span></div>
+  <div class="kicker"><span class="step-no">3</span>الخطوة الثالثة</div>
+  <h1>تنزيل الواجهة من <bdi>GitHub</bdi></h1>
+  <p class="lead">هذه هي الواجهة التي تتحدث من خلالها مع النموذج، وهي تشبه <bdi>ChatGPT</bdi> لكنها تعمل على جهازك.</p>
+
+  <ol class="steps">
+    <li>افتح صفحة المشروع على <bdi>GitHub</bdi>.</li>
+    <li>اضغط الزر الأخضر <span class="lit">Code</span>، ثم اختر <span class="lit">Download ZIP</span>.</li>
+  </ol>
+  <div class="illus" style="padding:6mm 18mm">
+    <span class="lbl">شكل توضيحي</span>
+    <div class="win" style="width:120mm; font-size:10pt">
+      <div class="bar" style="justify-content:space-between"><span>📁 offline-ai</span><span style="background:#1F883D;color:#fff;padding:1mm 4mm;border-radius:1.5mm;font-weight:600">&lt;&gt; Code ▾</span></div>
+      <div style="padding:4mm 5mm; border-top:1px solid #eee">
+        <div style="color:#666;font-size:8.5pt;margin-bottom:2mm">Clone · HTTPS</div>
+        <div style="background:#F6F8FA;border:1px solid #ddd;border-radius:1.5mm;padding:1.5mm 3mm;font-size:8.5pt;color:#555">https://github.com/…/offline-ai.git</div>
+        <div style="margin-top:3mm;padding:2mm 3mm" class="hl">📦 <b>Download ZIP</b></div>
+      </div>
+    </div>
+  </div>
+
+  <ol class="steps" start="3">
+    <li>افتح مجلد <span class="lit">Downloads</span>، وانقر بزر الفأرة الأيمن على الملف المضغوط، واختر <span class="lit">Extract All</span> ثم <span class="lit">Extract</span>.</li>
+  </ol>
+  <div class="illus" style="padding:5mm 30mm">
+    <span class="lbl">شكل توضيحي</span>
+    <div class="win" style="width:80mm; font-size:10pt">
+      <div style="padding:2mm 0">
+        <div style="padding:1.6mm 5mm">Open</div>
+        <div style="padding:1.6mm 5mm" class="hl">🗂️ <b>Extract All…</b></div>
+        <div style="padding:1.6mm 5mm">Share</div>
+        <div style="padding:1.6mm 5mm;color:#999">Copy as path</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip"><span class="i">💡</span><div>سيظهر مجلد جديد باسم <span class="lit">offline-ai-main</span>. انقله إلى أي مكان تريده (سطح المكتب مثلًا)؛ فهذا هو مجلد المشروع.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">7</span></div>
+</section>
+
+<!-- ═════════ 6. الخطوة الرابعة ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 4 من 5</span></div>
+  <div class="kicker"><span class="step-no">4</span>الخطوة الرابعة</div>
+  <h1>التشغيل بنقرة واحدة</h1>
+
+  <ol class="steps">
+    <li>افتح مجلد المشروع، وانقر نقرًا مزدوجًا على ملف <span class="lit">start.bat</span></li>
+    <li>قد يظهر لك تحذير أزرق من <bdi>Windows</bdi> بعنوان <span class="lit">Windows protected your PC</span>. يظهر هذا التحذير مع أي ملف جديد منزَّل من الإنترنت لا يعرفه <bdi>Windows</bdi>، <b>ولا يعني أن الملف ضار</b>. ولا يحتوي التحذير في البداية على زر تشغيل، لذا اتبع الخطوتين:
+      <div class="sub-steps">
+        <div><b class="n">أ</b>اضغط على العبارة الصغيرة <span class="lit">More info</span> أسفل النص.</div>
+        <div><b class="n">ب</b>سيظهر زر جديد باسم <span class="lit">Run anyway</span> (أي: «شغّل على أي حال»)؛ اضغط عليه.</div>
+      </div>
+    </li>
+  </ol>
+
+  <div class="illus" style="padding:5mm 6mm 4mm">
+    <span class="lbl">شكل توضيحي</span>
+    <div class="ss-pair">
+      <div>
+        <div class="ss-tag"><b class="n">أ</b>قبل: اضغط <span class="lit">More info</span></div>
+        <div class="win"><div class="ss">
+          <h4>Windows protected your PC</h4>
+          <p>Microsoft Defender SmartScreen prevented an unrecognized app from starting.</p>
+          <span class="more hl">More info</span>
+          <div class="row"><span>Don't run</span></div>
+        </div></div>
+      </div>
+      <div class="ss-arrow">←</div>
+      <div>
+        <div class="ss-tag"><b class="n">ب</b>بعد: اضغط <span class="lit">Run anyway</span></div>
+        <div class="win"><div class="ss">
+          <h4>Windows protected your PC</h4>
+          <p>App: start.bat<br>Publisher: Unknown publisher</p>
+          <div class="row"><span class="hl" style="background:#fff;color:#0B5CAD;font-weight:600">Run anyway</span><span>Don't run</span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <ol class="steps" start="3">
+    <li>ستُفتح <b>نافذة سوداء صغيرة</b> — <b>لا تغلقها</b> ما دمت تستخدم البرنامج.</li>
+    <li>سيفتح المتصفح الواجهة تلقائيًا 🎉</li>
+  </ol>
+  <div class="shot w66"><img src="img/ui-empty-light.png" alt=""></div>
+  <p class="cap">الواجهة عند فتحها أول مرة · النقطة الخضراء في الأعلى تعني أن النموذج جاهز</p>
+
+  <div class="warn"><span class="i">⚠️</span><div>إذا ظهرت رسالة خطأ تتعلق بالذاكرة (تحتوي على <span class="lit">memory</span> أو <span class="lit">allocate</span>)، فأغلق كل شيء وشغّل <span class="lit">start-lowmem.bat</span> بدلًا من <span class="lit">start.bat</span>؛ فهو يشغّل النموذج نفسه باستهلاك أقل للذاكرة.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">8</span></div>
+</section>
+
+<!-- ═════════ 7. الخطوة الخامسة ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 5 من 5</span></div>
+  <div class="kicker"><span class="step-no">5</span>الخطوة الأخيرة</div>
+  <h1>طريقة الاستخدام والتبديل بين النماذج</h1>
+  <p class="lead">اكتب سؤالك بالعربية واضغط <span class="key">Enter</span>، وسيظهر الجواب كلمةً كلمة.</p>
+
+  <div class="shot w88"><img src="img/ui-code-light-800.png" alt="">
+    <span class="pin" style="left:40%; top:84.6%">1</span>
+    <span class="pin" style="left:66.4%; top:85.6%">2</span>
+    <span class="pin" style="left:57.6%; top:85.6%">3</span>
+    <span class="pin" style="left:13.6%; top:90.6%">4</span>
+    <span class="pin" style="left:76%; top:14.2%">5</span>
+    <span class="pin" style="left:76%; top:32.8%">6</span>
+    <span class="pin" style="left:90.6%; top:92.6%">7</span>
+    <span class="pin" style="left:79.6%; top:92.6%">8</span>
+  </div>
+
+  <div class="legend">
+    <div><b class="n">1</b><span><b>مربع الكتابة</b>: اكتب سؤالك هنا</span></div>
+    <div><b class="n">5</b><span><b>محادثة جديدة</b>: لبدء موضوع جديد</span></div>
+    <div><b class="n">2</b><span><b>صورة</b>: ارفع صورة واسأل عنها (أو اسحبها إلى الصفحة)</span></div>
+    <div><b class="n">6</b><span><b>المحادثات</b>: جميعها محفوظة، ويمكنك العودة إليها متى شئت</span></div>
+    <div><b class="n">3</b><span><b>تفكير عميق</b>: أبطأ، لكنه أدق في الأسئلة الصعبة</span></div>
+    <div><b class="n">7</b><span><b>الوضع الفاتح والداكن</b></span></div>
+    <div><b class="n">4</b><span><b>إرسال</b>: ويتحوّل إلى زر <b>إيقاف</b> أثناء الكتابة</span></div>
+    <div><b class="n">8</b><span><b>الإعدادات</b>: لتغيير النموذج والتعليمات</span></div>
+  </div>
+
+  <h2>🔄 التبديل بين النماذج</h2>
+  <div class="grid2" style="align-items:center">
+    <ol class="steps" style="margin:0">
+      <li>اضغط زر <b>الإعدادات</b> (رقم 8).</li>
+      <li>من قائمة <b>النموذج</b> اختر أي نموذج نزّلته (المحددة بالأحمر).</li>
+      <li>اضغط <b>حفظ</b>، وستستخدم المحادثات التالية النموذج الجديد.</li>
+    </ol>
+    <div class="shot crop-settings"><img src="img/ui-settings-light.png" alt="">
+      <div class="ring" style="left:3%; top:76%; width:94%; height:17%"></div>
+    </div>
+  </div>
+
+  <div class="tip"><span class="i">⏱️</span><div><b>السرعة:</b> تختلف حسب النموذج؛ فالنماذج الصغيرة أسرع بكثير. وعلى حاسوب محمول مزوّد ببطاقة رسوميات بذاكرة <bdi>8 GB</bdi>، يكتب <span class="nw">Qwen3.8-27B</span> نحو <b>3 كلمات في الثانية</b>، وهذا طبيعي لنموذج بهذه القوة.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">9</span></div>
+</section>
+
+<!-- ═════════ 8. حل المشكلات ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>حل المشكلات</span></div>
+  <div class="kicker">🛠️ عند حدوث مشكلة</div>
+  <h1>حل المشكلات الشائعة</h1>
+
+  <table>
+    <tr><th style="width:38%">المشكلة</th><th>الحل</th></tr>
+    <tr><td class="t">توقف التنزيل وظهرت رسالة خطأ</td><td>الصق أمر التنزيل نفسه مرة أخرى، وسيُكمل من حيث توقف.</td></tr>
+    <tr><td class="t">رسالة <span class="lit">'ollama' is not recognized</span></td><td>أغلق <span class="lit">Command Prompt</span> وافتحه من جديد. وإن لم ينجح ذلك، فأعد تشغيل الجهاز.</td></tr>
+    <tr><td class="t">خطأ في الذاكرة (يحتوي على <span class="lit">memory</span> أو <span class="lit">allocate</span>)</td><td>اختر نموذجًا أصغر من جدول صفحة 5. وإن أردت <span class="nw">Qwen3.8-27B</span> تحديدًا، فشغّل <span class="lit">start-lowmem.bat</span> بدلًا من <span class="lit">start.bat</span>.</td></tr>
+    <tr><td class="t">ظهور رسالة «المحرّك غير مشغَّل» في الأعلى</td><td>أُغلقت النافذة السوداء؛ شغّل <span class="lit">start.bat</span> مرة أخرى.</td></tr>
+    <tr><td class="t">ظهور رسالة «النموذج قيد التحميل…»</td><td>انتظر من 20 إلى 60 ثانية؛ فالتشغيل الأول يستغرق بعض الوقت.</td></tr>
+    <tr><td class="t">الإجابة بطيئة</td><td>هذا طبيعي. أغلق البرامج الثقيلة (كالألعاب أو المتصفح بعلامات تبويب كثيرة)، وأوقف «التفكير العميق».</td></tr>
+    <tr><td class="t">جهازي أضعف من المطلوب</td><td>نزّل نموذجًا أصغر من جدول صفحة 5، ثم اختره من ⚙️ «الإعدادات».</td></tr>
+  </table>
+
+  <p style="margin-top:3mm">إذا ظهر خطأ في ذاكرة بطاقة الرسوميات حتى مع <span class="lit">start-lowmem.bat</span>، فشغّل الأمر التالي لتخفيف الحمل عنها:</p>
+  <div class="cmd">start-lowmem.bat -GpuLayers 10</div>
+  <div class="copy">📋 <span>افتح مجلد المشروع، واكتب <span class="lit">cmd</span> في شريط العنوان أعلى النافذة واضغط <span class="key">Enter</span>، ثم الصق الأمر</span></div>
+
+  <h2>❓ أسئلة شائعة</h2>
+  <p><b>هل يحتاج البرنامج إلى الإنترنت بعد التثبيت؟</b><br>لا. بعد تنزيل كل شيء، يمكنك قطع الاتصال بالإنترنت وسيعمل بشكل طبيعي.</p>
+  <p><b>هل يوجد حد للرسائل أو اشتراك؟</b><br>لا. البرنامج مجاني بالكامل ودون حدود، لكن يُفضَّل بدء محادثة جديدة إذا طالت المحادثة كثيرًا.</p>
+  <p><b>هل تُرسَل محادثاتي إلى أي جهة؟</b><br>لا. النموذج والمحادثات جميعها على جهازك فقط.</p>
+  <p><b>كيف أغلق البرنامج؟</b><br>أغلق المتصفح والنافذة السوداء. وفي المرة القادمة، شغّل <span class="lit">start.bat</span> فقط، دون الحاجة إلى تنزيل أي شيء من جديد.</p>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">10</span></div>
+</section>
+
+<!-- ═════════ 9. الصفحة الأخيرة ═════════ -->
+<section class="page back">
+  <div class="big-mark" style="width:16mm;height:16mm;border-radius:4.5mm"><svg style="width:9mm;height:9mm"><use href="#m"/></svg></div>
+  <div class="big">تهانينا 🎉<br>أصبح لديك <em>ذكاء اصطناعي خاص بك</em><br>يعمل دون إنترنت.</div>
+  <p style="color:var(--ink-2);font-size:13pt">إذا استفدت من هذا الدليل، فتابعني على <bdi>Instagram</bdi>؛ أشارك فيه أدوات الذكاء الاصطناعي ونصائحه بأسلوب مبسّط.</p>
+
+  <div class="card">
+    <div class="author">
+      <img src="../../assets/logo.png" alt="">
+      <div><div class="n">محمد مهدي</div><div class="b">طالب هندسة ذكاء اصطناعي · مطوّر <bdi>Offline AI</bdi></div></div>
+    </div>
+    <div class="links"><a href="https://instagram.com/mo.79u" dir="ltr">Instagram · @mo.79u</a><a href="https://wa.me/9647838533230" dir="ltr">WhatsApp · +964 783 853 3230</a></div>
+  </div>
+
+  <div class="legal">
+    © 2026 محمد مهدي — جميع حقوق الدليل والتصميم محفوظة. المشروع مفتوح المصدر بموجب رخصة <bdi>MIT</bdi>، ويجب الإبقاء على حقوق المطوّر عند نشره أو تعديله.<br>
+    <bdi>Ollama</bdi> و<bdi>Qwen</bdi> علامتان تجاريتان لمالكيهما، وهذا المشروع مستقل وغير تابع لهما. تُنزَّل النماذج من مكتبة <bdi>Ollama</bdi> الرسمية وتخضع لتراخيصها.
+  </div>
+</section>
+</body>
+</html>

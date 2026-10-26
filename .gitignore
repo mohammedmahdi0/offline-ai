@@ -1,0 +1,17 @@
+# model files are downloaded by Ollama, never committed
+*.gguf
+*.bin
+models/
+
+# local logs / test output
+*.log
+*.out
+.test-*
+.shots/
+.edge-profile/
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
