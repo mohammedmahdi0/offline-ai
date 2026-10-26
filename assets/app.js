@@ -43,6 +43,13 @@ const settings = { ...DEFAULTS, ...store.get('oq.settings', {}) };
 // start-lowmem.bat opens the page with ?engine=llamacpp so it never falls back to Ollama
 const forcedEngine = new URLSearchParams(location.search).get('engine');
 if (forcedEngine === 'llamacpp' || forcedEngine === 'ollama') settings.engine = forcedEngine;
+// start.bat <model> opens the page with ?model=… so the chat starts on that Ollama model
+const forcedModel = new URLSearchParams(location.search).get('model');
+if (forcedModel) {
+  settings.model = forcedModel;
+  if (!forcedEngine) settings.engine = 'ollama';   // an Ollama model name: don't wait for llama-server
+  store.set('oq.settings', settings);
+}
 let chats = store.get('oq.chats', []);
 let currentId = store.get('oq.current', null);
 let pending = [];            // images attached to the next message (data URLs)
@@ -530,7 +537,7 @@ function saveSettingsForm() {
   settings.system = $('system').value;
   if ($('modelSelect').value) settings.model = $('modelSelect').value;
   store.set('oq.settings', settings);
-  if (forcedEngine) history.replaceState(null, '', location.pathname);   // the user's choice wins from now on
+  if (forcedEngine || forcedModel) history.replaceState(null, '', location.pathname);   // the user's choice wins from now on
   $('settingsModal').classList.remove('show');
   toast('حُفظت الإعدادات'); detect();
 }

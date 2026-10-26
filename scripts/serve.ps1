@@ -5,7 +5,8 @@
 
   (c) Mohammed Mahdi (@mo.79u) - MIT License
 #>
-param([int]$Port = 5180, [switch]$NoBrowser, [ValidateSet('', 'ollama', 'llamacpp')][string]$Engine = '')
+param([int]$Port = 5180, [switch]$NoBrowser, [ValidateSet('', 'ollama', 'llamacpp')][string]$Engine = '',
+      [string]$Model = '')   # e.g. qwen3.5:0.8b - the page opens with this Ollama model selected
 
 $root = Split-Path $PSScriptRoot -Parent
 $types = @{
@@ -17,7 +18,10 @@ $types = @{
 $listener = New-Object System.Net.HttpListener
 $listener.Prefixes.Add("http://localhost:$Port/")
 $url = "http://localhost:$Port/"
-if ($Engine) { $url += "?engine=$Engine" }
+$query = @()
+if ($Engine) { $query += "engine=$Engine" }
+if ($Model)  { $query += 'model=' + [Uri]::EscapeDataString($Model) }
+if ($query)  { $url += '?' + ($query -join '&') }
 try { $listener.Start() } catch {
     Write-Host "Port $Port is busy - the chat page is probably already running." -ForegroundColor Yellow
     if (-not $NoBrowser) { Start-Process $url }

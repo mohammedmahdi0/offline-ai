@@ -57,7 +57,7 @@
 
 ⭐ الخيار المقترح لأغلب الأجهزة الحديثة. النموذجان الأصغر (0.8B و2B) سريعان لكن دقتهما محدودة وقد يخطئان في المعلومات، فهما للتجربة والأجهزة الضعيفة. الأحجام تقريبية حسب [مكتبة Ollama](https://ollama.com/library).
 لا تتوفر حاليًا نماذج مفتوحة من Anthropic (Claude) يمكن تشغيلها على الجهاز، لذا لا يدعمها المشروع.
-## 🚀 التشغيل في 3 خطوات
+## 🚀 التشغيل في 4 خطوات
 
 > 📘 للشرح الكامل بالصور، افتح [دليل التشغيل PDF](دليل-التشغيل.pdf).
 
@@ -69,8 +69,31 @@
 ollama pull qwen3.5:9b
 ```
 
-**3. نزّل هذا المشروع** من زر **Code ← Download ZIP**، وفُكّ ضغطه، ثم انقر نقرًا مزدوجًا على **`start.bat`**.
-ستُفتح الواجهة في المتصفح على `http://localhost:5180`.
+**3. نزّل هذا المشروع** بالأوامر التالية في `Command Prompt` نفسه، واحدًا تلو الآخر. سيُحفظ في مجلدك الشخصي باسم `offline-ai-main`:
+
+```bash
+cd /d %USERPROFILE%
+```
+
+```bash
+curl -Lo ai.zip https://github.com/mohammedmahdi0/offline-ai/archive/main.zip
+```
+
+```bash
+powershell Expand-Archive ai.zip . -Force
+```
+
+**4. شغّل الواجهة على نموذجك**: انتقل إلى مجلد المشروع، ثم اكتب `start.bat` متبوعًا باسم النموذج الذي نزّلته. وكرّر هذين الأمرين في كل مرة تريد فيها استخدام البرنامج:
+
+```bash
+cd /d %USERPROFILE%\offline-ai-main
+```
+
+```bash
+start.bat qwen3.5:9b
+```
+
+سيشغّل `start.bat` برنامج Ollama تلقائيًا، ويفتح الواجهة في المتصفح على `http://localhost:5180` والنموذج جاهز. ويمكنك أيضًا النقر نقرًا مزدوجًا على `start.bat` لفتح الواجهة على آخر نموذج اخترته.
 
 ### ⚠️ إذا ظهر خطأ `unable to allocate CUDA_Host buffer`
 
@@ -99,7 +122,7 @@ start-lowmem.bat -GpuLayers 10
 
 ```
 دليل-التشغيل.pdf                  دليل التشغيل المصوّر (ابدأ من هنا)
-start.bat                         التشغيل العادي عبر Ollama
+start.bat                         التشغيل العادي عبر Ollama (start.bat <اسم النموذج> لاختياره مباشرةً)
 start-lowmem.bat                  التشغيل باستهلاك أقل للذاكرة
 index.html                        الواجهة
 assets/                           التصميم والمنطق والخط (Tajawal) وصورة المطوّر
@@ -116,7 +139,7 @@ docs/guide/                       مصدر دليل التشغيل وصوره
 **llama-server** bundled inside Ollama, supports **image input**, an optional **thinking mode**, saved chats,
 light/dark themes, and shows tokens/second for every reply. No internet, no accounts, no telemetry.
 
-**Quick start:** install [Ollama](https://ollama.com/download) → pull a model from the table above (e.g. `ollama pull qwen3.5:9b`) → double-click `start.bat`.
+**Quick start:** install [Ollama](https://ollama.com/download) → pull a model from the table above (e.g. `ollama pull qwen3.5:9b`) → download this repo (Code → Download ZIP, or the `curl` commands above) → run `start.bat <model>` from its folder, e.g. `start.bat qwen3.5:9b`.
 A full illustrated guide (Arabic) is in [`دليل-التشغيل.pdf`](دليل-التشغيل.pdf).
 
 ---

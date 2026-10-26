@@ -177,7 +177,16 @@ table.models tr.pick td { background: #E3F7F2; }
 .hero-crop img { height: 100%; object-fit: cover; object-position: top; }
 table.models.all { font-size: 9.2pt; }
 table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
+.anatomy { display: flex; align-items: stretch; gap: 3mm; margin: 2mm 0 1mm; direction: ltr; }
+.anatomy .part { flex: 1; background: var(--soft); border: 0.5mm solid var(--clay); border-radius: 3mm; padding: 2mm 3.5mm; text-align: center; }
+.anatomy .part code { display: block; font-family: Consolas, monospace; font-size: 12pt; font-weight: 700; color: var(--ink); }
+.anatomy .part span { display: block; direction: rtl; font-size: 8.8pt; color: var(--ink-2); margin-top: 0.8mm; line-height: 1.5; }
+.anatomy .plus { align-self: center; font-size: 8.5pt; color: var(--mut); }
+.cmd-full { display: grid; gap: 1.2mm; margin: 2mm 0 3mm; }
+.cmd-full .lbl2 { margin-top: 1.5mm; }
 .cmd-list.tight { gap: 1.2mm; }
+.cmd-list.xt { gap: 0.9mm; margin-bottom: 1.5mm; }
+.cmd-list.xt .cmd.sm { padding-top: 0.75mm; padding-bottom: 0.75mm; }
 .cmd-list.tight .cmd.sm { padding-top: 1.2mm; padding-bottom: 1.2mm; font-size: 10pt; }
 /* دليل سريع لاختيار النموذج */
 .pick-guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin: 3mm 0; }
@@ -195,8 +204,8 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
   box-shadow: 0 0 0 1.2mm #fff, 0 0 0 2mm #00C5CD, 0 5mm 16mm rgba(0,150,156,.35); }
 .cover-photo span { display: block; margin-top: 3mm; font-weight: 800; font-size: 11pt; color: var(--clay); }
 
-.toc { list-style: none; padding: 0; margin: 4mm 0; }
-.toc li { display: flex; align-items: center; gap: 4mm; padding: 1.5mm 0; border-bottom: 1px dashed var(--line); font-size: 11.2pt; }
+.toc { list-style: none; padding: 0; margin: 3mm 0; }
+.toc li { display: flex; align-items: center; gap: 4mm; padding: 1mm 0; border-bottom: 1px dashed var(--line); font-size: 11.2pt; }
 .toc li .no { width: 7.5mm; height: 7.5mm; border-radius: 2.6mm; background: var(--soft); color: var(--clay); font-weight: 800; display: grid; place-items: center; }
 .toc li .pg { margin-inline-start: auto; color: var(--mut); font-size: 10.5pt; }
 
@@ -264,9 +273,10 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
     <li><span class="no">1</span>تثبيت برنامج <bdi>Ollama</bdi><span class="pg">صفحة 4</span></li>
     <li><span class="no">2</span>اختيار النموذج المناسب لجهازك (<bdi>Qwen</bdi> و<bdi>Google</bdi> و<bdi>OpenAI</bdi>) وتنزيله<span class="pg">صفحة 5</span></li>
     <li><span class="no">3</span>تنزيل الواجهة من <bdi>GitHub</bdi><span class="pg">صفحة 7</span></li>
-    <li><span class="no">4</span>التشغيل بنقرة واحدة<span class="pg">صفحة 8</span></li>
+    <li><span class="no">4</span>تشغيل الواجهة على نموذجك<span class="pg">صفحة 8</span></li>
     <li><span class="no">5</span>طريقة الاستخدام والتبديل بين النماذج<span class="pg">صفحة 9</span></li>
-    <li><span class="no">؟</span>حل المشكلات والأسئلة الشائعة<span class="pg">صفحة 10</span></li>
+    <li><span class="no">⚡</span>اجعل النموذج أسرع، وطريقة التشغيل بالنقر المزدوج<span class="pg">صفحة 10</span></li>
+    <li><span class="no">؟</span>حل المشكلات والأسئلة الشائعة<span class="pg">صفحة 11</span></li>
   </ul>
 
   <div class="tip"><span class="i">📋</span><div><b>يمكنك نسخ أي أمر في هذا الدليل مباشرةً:</b> حدّده بالفأرة داخل المربع، ثم اضغط <span class="combo"><span class="key">Ctrl</span> + <span class="key">C</span></span> للنسخ، و<span class="combo"><span class="key">Ctrl</span> + <span class="key">V</span></span> للصق.<br>ولفتح أي رابط في تبويب جديد دون إغلاق هذا الدليل، اضغط <span class="key">Ctrl</span> أثناء النقر على الرابط.</div></div>
@@ -431,40 +441,21 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
   <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 3 من 5</span></div>
   <div class="kicker"><span class="step-no">3</span>الخطوة الثالثة</div>
   <h1>تنزيل الواجهة من <bdi>GitHub</bdi></h1>
-  <p class="lead">هذه هي الواجهة التي تتحدث من خلالها مع النموذج، وهي تشبه <bdi>ChatGPT</bdi> لكنها تعمل على جهازك.</p>
+  <p class="lead">هذه هي الواجهة التي تتحدث من خلالها مع النموذج، وهي تشبه <bdi>ChatGPT</bdi> لكنها تعمل على جهازك. ستنزّلها بثلاثة أوامر في <span class="lit">Command Prompt</span>.</p>
 
   <ol class="steps">
-    <li>افتح صفحة المشروع على <bdi>GitHub</bdi>.</li>
-    <li>اضغط الزر الأخضر <span class="lit">Code</span>، ثم اختر <span class="lit">Download ZIP</span>.</li>
+    <li>افتح <span class="lit">Command Prompt</span> كما في صفحة 6 (أو استخدم النافذة نفسها التي نزّلت منها النموذج).</li>
+    <li>الصق الأوامر التالية <b>واحدًا تلو الآخر</b>، واضغط <span class="key">Enter</span> بعد كل أمر:</li>
   </ol>
-  <div class="illus" style="padding:6mm 18mm">
-    <span class="lbl">شكل توضيحي</span>
-    <div class="win" style="width:120mm; font-size:10pt">
-      <div class="bar" style="justify-content:space-between"><span>📁 offline-ai</span><span style="background:#1F883D;color:#fff;padding:1mm 4mm;border-radius:1.5mm;font-weight:600">&lt;&gt; Code ▾</span></div>
-      <div style="padding:4mm 5mm; border-top:1px solid #eee">
-        <div style="color:#666;font-size:8.5pt;margin-bottom:2mm">Clone · HTTPS</div>
-        <div style="background:#F6F8FA;border:1px solid #ddd;border-radius:1.5mm;padding:1.5mm 3mm;font-size:8.5pt;color:#555">https://github.com/…/offline-ai.git</div>
-        <div style="margin-top:3mm;padding:2mm 3mm" class="hl">📦 <b>Download ZIP</b></div>
-      </div>
-    </div>
+
+  <div class="cmd-full">
+    <span class="lbl2">أ. انتقل إلى مجلدك الشخصي</span><div class="cmd sm">cd /d %USERPROFILE%</div>
+    <span class="lbl2">ب. نزّل المشروع من <bdi>GitHub</bdi> في ملف مضغوط باسم <bdi>ai.zip</bdi></span><div class="cmd sm">curl -Lo ai.zip https://github.com/mohammedmahdi0/offline-ai/archive/main.zip</div>
+    <span class="lbl2">ج. فُكّ ضغط الملف، فيظهر مجلد المشروع</span><div class="cmd sm">powershell Expand-Archive ai.zip . -Force</div>
   </div>
 
-  <ol class="steps" start="3">
-    <li>افتح مجلد <span class="lit">Downloads</span>، وانقر بزر الفأرة الأيمن على الملف المضغوط، واختر <span class="lit">Extract All</span> ثم <span class="lit">Extract</span>.</li>
-  </ol>
-  <div class="illus" style="padding:5mm 30mm">
-    <span class="lbl">شكل توضيحي</span>
-    <div class="win" style="width:80mm; font-size:10pt">
-      <div style="padding:2mm 0">
-        <div style="padding:1.6mm 5mm">Open</div>
-        <div style="padding:1.6mm 5mm" class="hl">🗂️ <b>Extract All…</b></div>
-        <div style="padding:1.6mm 5mm">Share</div>
-        <div style="padding:1.6mm 5mm;color:#999">Copy as path</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tip"><span class="i">💡</span><div>سيظهر مجلد جديد باسم <span class="lit">offline-ai-main</span>. انقله إلى أي مكان تريده (سطح المكتب مثلًا)؛ فهذا هو مجلد المشروع.</div></div>
+  <div class="ok"><span class="i">✅</span><div>سيظهر مجلد جديد باسم <span class="lit">offline-ai-main</span> داخل مجلدك الشخصي (مثل <bdi class="lit">C:\Users\Ali</bdi>)، وهذا هو مجلد المشروع. <b>لا تنقله إلى مكان آخر</b>؛ لأن أمر التشغيل في الصفحة التالية يبحث عنه هنا.</div></div>
+  <div class="tip"><span class="i">💡</span><div>الأداتان <span class="lit">curl</span> و<span class="lit">powershell</span> موجودتان في <bdi>Windows 10</bdi> و<bdi>Windows 11</bdi>، فلا تحتاج إلى تثبيت أي شيء إضافي. وإذا ظهرت رسالة خطأ أثناء التنزيل، فتأكد من اتصالك بالإنترنت وأعد الأمر نفسه.</div></div>
 
   <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">7</span></div>
 </section>
@@ -473,50 +464,41 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
 <section class="page">
   <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>الخطوة 4 من 5</span></div>
   <div class="kicker"><span class="step-no">4</span>الخطوة الرابعة</div>
-  <h1>التشغيل بنقرة واحدة</h1>
+  <h1>تشغيل الواجهة على نموذجك</h1>
+  <p class="lead">بعد انتهاء التنزيل، شغّل الواجهة على نموذجك بأمرين في <span class="lit">Command Prompt</span>. وكرّر الأمرين نفسيهما في كل مرة تريد فيها استخدام البرنامج.</p>
 
   <ol class="steps">
-    <li>افتح مجلد المشروع، وانقر نقرًا مزدوجًا على ملف <span class="lit">start.bat</span></li>
-    <li>قد يظهر لك تحذير أزرق من <bdi>Windows</bdi> بعنوان <span class="lit">Windows protected your PC</span>. يظهر هذا التحذير مع أي ملف جديد منزَّل من الإنترنت لا يعرفه <bdi>Windows</bdi>، <b>ولا يعني أن الملف ضار</b>. ولا يحتوي التحذير في البداية على زر تشغيل، لذا اتبع الخطوتين:
-      <div class="sub-steps">
-        <div><b class="n">أ</b>اضغط على العبارة الصغيرة <span class="lit">More info</span> أسفل النص.</div>
-        <div><b class="n">ب</b>سيظهر زر جديد باسم <span class="lit">Run anyway</span> (أي: «شغّل على أي حال»)؛ اضغط عليه.</div>
-      </div>
-    </li>
+    <li>افتح <span class="lit">Command Prompt</span>: اضغط زر <bdi>Windows</bdi> ⊞، واكتب <span class="lit">cmd</span>، ثم اضغط <span class="key">Enter</span>.</li>
+    <li>انتقل إلى مجلد المشروع بهذا الأمر، ثم اضغط <span class="key">Enter</span>:</li>
+  </ol>
+  <div class="cmd">cd /d %USERPROFILE%\offline-ai-main</div>
+  <div class="copy">📋 <span>انسخ الأمر كما هو؛ فالجزء <span class="lit">%USERPROFILE%</span> يتحوّل تلقائيًا إلى مجلدك الشخصي، أيًّا كان اسم المستخدم.</span></div>
+  <ol class="steps" start="3">
+    <li>اكتب <b>أمر التشغيل</b>، ثم اضغط <span class="key">Enter</span>. وهو يتكوّن من جزأين:</li>
   </ol>
 
-  <div class="illus" style="padding:5mm 6mm 4mm">
-    <span class="lbl">شكل توضيحي</span>
-    <div class="ss-pair">
-      <div>
-        <div class="ss-tag"><b class="n">أ</b>قبل: اضغط <span class="lit">More info</span></div>
-        <div class="win"><div class="ss">
-          <h4>Windows protected your PC</h4>
-          <p>Microsoft Defender SmartScreen prevented an unrecognized app from starting.</p>
-          <span class="more hl">More info</span>
-          <div class="row"><span>Don't run</span></div>
-        </div></div>
-      </div>
-      <div class="ss-arrow">←</div>
-      <div>
-        <div class="ss-tag"><b class="n">ب</b>بعد: اضغط <span class="lit">Run anyway</span></div>
-        <div class="win"><div class="ss">
-          <h4>Windows protected your PC</h4>
-          <p>App: start.bat<br>Publisher: Unknown publisher</p>
-          <div class="row"><span class="hl" style="background:#fff;color:#0B5CAD;font-weight:600">Run anyway</span><span>Don't run</span></div>
-        </div></div>
-      </div>
-    </div>
+  <div class="anatomy">
+    <div class="part"><code>start.bat</code><span>ملف التشغيل: يشغّل <bdi>Ollama</bdi> ويفتح الواجهة</span></div>
+    <div class="plus">مسافة</div>
+    <div class="part"><code>qwen3.5:9b</code><span>اسم النموذج كما نزّلته بالأمر <bdi>ollama pull</bdi></span></div>
   </div>
 
-  <ol class="steps" start="3">
-    <li>ستُفتح <b>نافذة سوداء صغيرة</b> — <b>لا تغلقها</b> ما دمت تستخدم البرنامج.</li>
-    <li>سيفتح المتصفح الواجهة تلقائيًا 🎉</li>
-  </ol>
-  <div class="shot w66"><img src="img/ui-empty-light.png" alt=""></div>
-  <p class="cap">الواجهة عند فتحها أول مرة · النقطة الخضراء في الأعلى تعني أن النموذج جاهز</p>
-
-  <div class="warn"><span class="i">⚠️</span><div>إذا ظهرت رسالة خطأ تتعلق بالذاكرة (تحتوي على <span class="lit">memory</span> أو <span class="lit">allocate</span>)، فأغلق كل شيء وشغّل <span class="lit">start-lowmem.bat</span> بدلًا من <span class="lit">start.bat</span>؛ فهو يشغّل النموذج نفسه باستهلاك أقل للذاكرة.</div></div>
+  <h2>📋 أمر التشغيل لكل نموذج</h2>
+  <div class="cmd-list tight xt">
+    <div><span class="lbl2"><span class="nw">Qwen3.5-0.8B</span></span><div class="cmd sm">start.bat qwen3.5:0.8b</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.5-2B</span></span><div class="cmd sm">start.bat qwen3.5:2b</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.5-4B</span></span><div class="cmd sm">start.bat qwen3.5:4b</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 E2B</span></span><div class="cmd sm">start.bat gemma4:e2b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 E4B</span></span><div class="cmd sm">start.bat gemma4:e4b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.5-9B</span> ⭐</span><div class="cmd sm">start.bat qwen3.5:9b</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 12B</span></span><div class="cmd sm">start.bat gemma4:12b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">gpt-oss-20B</span></span><div class="cmd sm">start.bat gpt-oss:20b</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.8-27B</span></span><div class="cmd sm">start.bat qwen3.8:27b-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 26B</span></span><div class="cmd sm">start.bat gemma4:26b-a4b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Gemma 4 31B</span></span><div class="cmd sm">start.bat gemma4:31b-it-q4_K_M</div></div>
+    <div><span class="lbl2"><span class="nw">Qwen3.6-35B-A3B</span></span><div class="cmd sm">start.bat qwen3.6:35b-a3b-q4_K_M</div></div>
+  </div>
+  <div class="ok"><span class="i">✅</span><div>سيفتح المتصفح الواجهة والنموذج جاهز 🎉 وتبقى <b>نافذة سوداء</b> مفتوحة؛ <b>لا تغلقها</b> ما دمت تستخدم البرنامج. وإذا كتبت اسم نموذج لم تنزّله، فستظهر قائمة النماذج الموجودة على جهازك.</div></div>
 
   <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">8</span></div>
 </section>
@@ -562,9 +544,36 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
     </div>
   </div>
 
-  <div class="tip"><span class="i">⏱️</span><div><b>السرعة:</b> تختلف حسب النموذج؛ فالنماذج الصغيرة أسرع بكثير. وعلى حاسوب محمول مزوّد ببطاقة رسوميات بذاكرة <bdi>8 GB</bdi>، يكتب <span class="nw">Qwen3.8-27B</span> نحو <b>3 كلمات في الثانية</b>، وهذا طبيعي لنموذج بهذه القوة.</div></div>
+  <div class="tip"><span class="i">⏱️</span><div><b>السرعة:</b> تظهر تحت كل إجابة بعدد الرموز في الثانية. وإذا كانت الإجابة بطيئة جدًا، فاختر نموذجًا أصغر، أو تأكد أنك فتحت الواجهة على النموذج الصحيح (صفحة 8).</div></div>
 
   <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">9</span></div>
+</section>
+
+<!-- ═════════ 9ب. السرعة والتشغيل المباشر ═════════ -->
+<section class="page">
+  <div class="runner"><span class="brand" dir="ltr"><span class="mark"><svg><use href="#m"/></svg></span>Offline AI</span><span>السرعة</span></div>
+  <div class="kicker">⚡ للحصول على أفضل سرعة</div>
+  <h1>اجعل النموذج أسرع</h1>
+  <p class="lead">لا تعتمد السرعة على طريقة التشغيل، بل على <b>حجم النموذج مقارنةً بذاكرة بطاقة الرسوميات</b> (<bdi>VRAM</bdi>). فإذا اتسعت له الذاكرة كتب الإجابة فورًا تقريبًا، وإذا كان أكبر منها نُقل جزء من العمل إلى المعالج فأصبح بطيئًا جدًا.</p>
+
+  <h2>📊 قياس فعلي على حاسوب محمول</h2>
+  <p style="font-size:10.2pt; margin:0 0 2mm">بطاقة رسوميات <bdi>RTX 4070</bdi> بذاكرة <bdi>8 GB</bdi>، وذاكرة <bdi>32 GB</bdi>، والسؤال: «اكتب لي كود بايثون لتصنيف درجات الطلاب».</p>
+  <table>
+    <tr><th style="width:30%">النموذج</th><th style="width:26%">السرعة</th><th>النتيجة</th></tr>
+    <tr><td class="t"><span class="nw">Qwen3.5-0.8B</span></td><td>نحو <b><bdi>140</bdi></b> رمزًا في الثانية</td><td>كتب الإجابة كاملة في ثوانٍ.</td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.8-27B</span></td><td>نحو <b><bdi>3</bdi></b> رموز في الثانية</td><td>استغرق رد قصير نحو دقيقة ونصف؛ لأن حجمه (<bdi>17 GB</bdi>) أكبر بكثير من ذاكرة البطاقة.</td></tr>
+    <tr><td class="t"><span class="nw">Qwen3.6-35B-A3B</span></td><td>—</td><td>لم يعمل دون تفعيل <span class="nw">Page File</span> في <bdi>Windows</bdi>.</td></tr>
+  </table>
+
+  <div class="tip"><span class="i">💡</span><div><b>كيف أعرف ذاكرة بطاقة الرسوميات؟</b> افتح <span class="lit">Task Manager</span> بالضغط على <span class="combo"><span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">Esc</span></span>، ثم <span class="lit">Performance</span> ثم <span class="lit">GPU</span>، وانظر إلى <span class="lit">Dedicated GPU memory</span>. وللحصول على أعلى سرعة، اختر نموذجًا حجمه (في جدول صفحة 5) أصغر من هذا الرقم.</div></div>
+
+  <h2>🖱️ طريقة أخرى: النقر المزدوج</h2>
+  <p style="font-size:10.2pt; margin:0 0 1mm">يمكنك أيضًا النقر نقرًا مزدوجًا على ملف <span class="lit">start.bat</span> في مجلد المشروع، فتُفتح الواجهة على آخر نموذج اخترته.</p>
+  <p style="font-size:10.2pt; margin:0 0 2mm">وقد يظهر عندها تحذير أزرق بعنوان <span class="lit">Windows protected your PC</span>؛ فاضغط <span class="lit">More info</span> ثم <span class="lit">Run anyway</span>. يظهر هذا التحذير مع أي ملف جديد منزَّل من الإنترنت، <b>ولا يعني أن الملف ضار</b>.</p>
+
+  <div class="warn"><span class="i">ℹ️</span><div><b>لماذا لا أحادث النموذج داخل <span class="lit">Command Prompt</span> بالأمر <span class="lit">ollama run</span>؟</b> لأن <span class="lit">Command Prompt</span> لا يعرض الحروف العربية بشكل صحيح، فتظهر متقطعة. أما الواجهة فتعرضها كاملة، وبالسرعة نفسها.</div></div>
+
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">10</span></div>
 </section>
 
 <!-- ═════════ 8. حل المشكلات ═════════ -->
@@ -581,21 +590,21 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
     <tr><td class="t">ظهور رسالة «Ollama غير مشغَّل»</td><td>شغّل <span class="lit">start.bat</span> مرة أخرى (فهو يشغّل <bdi>Ollama</bdi> تلقائيًا)، أو افتح <bdi>Ollama</bdi> من قائمة «ابدأ».</td></tr>
     <tr><td class="t">ظهور رسالة «لا يوجد نموذج»</td><td>لم تنزّل أي نموذج بعد؛ انسخ أمر التنزيل من صفحة 6.</td></tr>
     <tr><td class="t">ظهور رسالة «النموذج قيد التحميل…»</td><td>انتظر من 20 إلى 60 ثانية؛ فالتشغيل الأول يستغرق بعض الوقت.</td></tr>
-    <tr><td class="t">الإجابة بطيئة</td><td>هذا طبيعي. أغلق البرامج الثقيلة (كالألعاب أو المتصفح بعلامات تبويب كثيرة)، وأوقف «التفكير العميق».</td></tr>
+    <tr><td class="t">الإجابة بطيئة جدًا</td><td>النموذج أكبر من ذاكرة بطاقة الرسوميات؛ فاختر نموذجًا أصغر (صفحة 10)، وأوقف «التفكير العميق».</td></tr>
     <tr><td class="t">جهازي أضعف من المطلوب</td><td>نزّل نموذجًا أصغر من جدول صفحة 5، ثم اختره من ⚙️ «الإعدادات».</td></tr>
   </table>
 
   <p style="margin-top:3mm">إذا ظهر خطأ في ذاكرة بطاقة الرسوميات حتى مع <span class="lit">start-lowmem.bat</span>، فشغّل الأمر التالي لتخفيف الحمل عنها:</p>
   <div class="cmd">start-lowmem.bat -GpuLayers 10</div>
-  <div class="copy">📋 <span>افتح مجلد المشروع، واكتب <span class="lit">cmd</span> في شريط العنوان أعلى النافذة واضغط <span class="key">Enter</span>، ثم الصق الأمر</span></div>
+  <div class="copy">📋 <span>افتح <span class="lit">Command Prompt</span>، وانتقل إلى مجلد المشروع بالأمر <span class="lit">cd</span> (صفحة 8)، ثم الصق الأمر</span></div>
 
   <h2>❓ أسئلة شائعة</h2>
   <p><b>هل يحتاج البرنامج إلى الإنترنت بعد التثبيت؟</b><br>لا. بعد تنزيل كل شيء، يمكنك قطع الاتصال بالإنترنت وسيعمل بشكل طبيعي.</p>
   <p><b>هل يوجد حد للرسائل أو اشتراك؟</b><br>لا. البرنامج مجاني بالكامل ودون حدود، لكن يُفضَّل بدء محادثة جديدة إذا طالت المحادثة كثيرًا.</p>
   <p><b>هل تُرسَل محادثاتي إلى أي جهة؟</b><br>لا. النموذج والمحادثات جميعها على جهازك فقط.</p>
-  <p><b>كيف أغلق البرنامج؟</b><br>أغلق المتصفح والنافذة السوداء. وفي المرة القادمة، شغّل <span class="lit">start.bat</span> فقط، دون الحاجة إلى تنزيل أي شيء من جديد.</p>
+  <p><b>كيف أغلق البرنامج؟</b><br>أغلق المتصفح والنافذة السوداء. وفي المرة القادمة، شغّل أمر التشغيل نفسه (صفحة 8) فقط، دون الحاجة إلى تنزيل أي شيء من جديد.</p>
 
-  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">10</span></div>
+  <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">11</span></div>
 </section>
 
 <!-- ═════════ 9. الصفحة الأخيرة ═════════ -->
