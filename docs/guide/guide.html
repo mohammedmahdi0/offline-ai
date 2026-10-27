@@ -192,7 +192,7 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
 .cmd-list.run .cmd.sm { font-size: 8.3pt; padding-left: 9mm; background-position: 3.5mm center; }
 .anatomy .part code { word-break: break-all; }
 .cmd-list.tight { gap: 1.2mm; }
-.cmd-list.xt { gap: 0.9mm; margin-bottom: 1.5mm; }
+.cmd-list.xt { gap: 0.6mm; margin-bottom: 1.2mm; }
 .cmd-list.xt .cmd.sm { padding-top: 0.5mm; padding-bottom: 0.5mm; }
 .cmd-list.tight .cmd.sm { padding-top: 1.2mm; padding-bottom: 1.2mm; font-size: 10pt; }
 /* دليل سريع لاختيار النموذج */
@@ -444,14 +444,9 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
   <div class="cmd">cd /d D:\offline-ai</div>
   <div class="copy">✔️ <span>إذا نجح الأمر، فسيبدأ السطر في النافذة السوداء بـ <span dir="ltr" style="unicode-bidi:isolate;background:#0C0C0C;color:#E6E6E6;border-radius:1mm;padding:0.3mm 2.5mm;font-family:Consolas,monospace">D:\offline-ai&gt;</span></span></div>
   <ol class="steps" start="3">
-    <li>الصق <b>أمر التشغيل</b> الخاص بنموذجك من القائمة أدناه، ثم اضغط <span class="key">Enter</span>. ويتكوّن من جزأين:</li>
+    <li>الصق <b>أمر التشغيل</b> الخاص بنموذجك من القائمة أدناه، ثم اضغط <span class="key">Enter</span>. ويتكوّن من <span class="lit">start.bat</span> (يشغّل <bdi>Ollama</bdi> ويفتح الواجهة)، ثم مسافة، ثم اسم النموذج كما نزّلته.</li>
   </ol>
 
-  <div class="anatomy">
-    <div class="part"><code>start.bat</code><span>ملف التشغيل: يشغّل <bdi>Ollama</bdi> ويفتح الواجهة</span></div>
-    <div class="plus">مسافة</div>
-    <div class="part"><code>qwen3.5:9b</code><span>اسم النموذج كما نزّلته بالأمر <bdi>ollama pull</bdi></span></div>
-  </div>
 
   <h2>📋 أمر التشغيل لكل نموذج</h2>
   <div class="cmd-list tight xt">
@@ -468,8 +463,8 @@ table.models.all th, table.models.all td { padding: 1.25mm 2.2mm; }
     <div><span class="lbl2"><span class="nw">Gemma 4 31B</span></span><div class="cmd sm">start.bat gemma4:31b-it-q4_K_M</div></div>
     <div><span class="lbl2"><span class="nw">Qwen3.6-35B-A3B</span></span><div class="cmd sm">start.bat qwen3.6:35b-a3b-q4_K_M</div></div>
   </div>
-  <div class="ok"><span class="i">✅</span><div>سيفتح المتصفح الواجهة والنموذج جاهز 🎉 <b>لا تغلق النافذة السوداء</b> ما دمت تستخدم البرنامج.</div></div>
-  <div class="tip"><span class="i">🖱️</span><div><b>في المرات التالية:</b> افتح المجلد <span class="lit" dir="ltr" style="unicode-bidi:isolate">D:\offline-ai</span>، وانقر نقرًا مزدوجًا على <span class="lit">start.bat</span>؛ فتُفتح الواجهة على آخر نموذج شغّلته.</div></div>
+  <div class="ok"><span class="i">✅</span><div>سيفتح المتصفح الواجهة والنموذج جاهز 🎉 <b>لا تغلق النافذة السوداء</b> ما دمت تستخدم البرنامج. <b>وفي المرات التالية</b> انقر نقرًا مزدوجًا على <span class="lit">start.bat</span> في <span class="lit" dir="ltr" style="unicode-bidi:isolate">D:\offline-ai</span>.</div></div>
+  <div class="warn"><span class="i">⚠️</span><div><b>لم يُفتح النموذج من <span class="lit">Command Prompt</span>؟</b> <b>1.</b> انقر نقرًا مزدوجًا على <span class="lit">start.bat</span> في <span class="lit" dir="ltr" style="unicode-bidi:isolate">D:\offline-ai</span>.<br><b>2.</b> وإن لم يُفتح، فانقر نقرًا مزدوجًا على <span class="lit">start-lowmem.bat</span> (يشغّل <span class="nw">Qwen3.8-27B</span>؛ ولغيره: <span class="lit" dir="ltr" style="unicode-bidi:isolate">start-lowmem.bat -Model</span> واسم النموذج).</div></div>
 
   <div class="foot"><span>دليل التشغيل · محمد مهدي @mo.79u</span><span class="pn">6</span></div>
 </section>
